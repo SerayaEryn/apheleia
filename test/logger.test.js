@@ -48,7 +48,7 @@ function runTests (test) {
     logger.info('test test test')
     logger.end(() => {
       const buffer = fs.readFileSync(fileName)
-      t.ok(buffer.toString().startsWith('INFO'))
+      t.ok(buffer.toString().includes('INFO'))
       t.ok(buffer.toString().endsWith('test test test\n'))
     })
   })
@@ -63,7 +63,7 @@ function runTests (test) {
     logger.warn('test test test')
     logger.end(() => {
       const buffer = fs.readFileSync(fileName)
-      t.ok(buffer.toString().startsWith('WARN'))
+      t.ok(buffer.toString().includes('WARN'))
       t.ok(buffer.toString().endsWith('test test test\n'))
     })
   })
@@ -78,7 +78,7 @@ function runTests (test) {
     logger.error('test test test')
     logger.end(() => {
       const buffer = fs.readFileSync(fileName)
-      t.ok(buffer.toString().startsWith('ERROR'))
+      t.ok(buffer.toString().includes('ERROR'))
       t.ok(buffer.toString().endsWith('test test test\n'))
     })
   })
@@ -93,7 +93,7 @@ function runTests (test) {
     logger.error('test test test', new Error('booom'))
     logger.end(() => {
       const log = fs.readFileSync(fileName).toString()
-      t.ok(log.startsWith('ERROR'))
+      t.ok(log.includes('ERROR'))
       t.ok(log.includes('test test test\nError: booom\n'))
     })
   })
@@ -110,7 +110,7 @@ function runTests (test) {
     child.error('test test test', new Error('booom'))
     logger.end(() => {
       const log = fs.readFileSync(fileName).toString()
-      t.ok(log.startsWith('ERROR'))
+      t.ok(log.includes('ERROR'))
       t.ok(log.includes('test test test test=42\nError: booom\n'))
     })
   })
@@ -126,7 +126,7 @@ function runTests (test) {
     child.info('test test test')
     logger.end(() => {
       const log = fs.readFileSync(fileName).toString()
-      t.ok(log.startsWith('INFO'))
+      t.ok(log.includes('INFO'))
       t.ok(log.endsWith('test test test test=42\n'))
     })
   })
@@ -144,7 +144,7 @@ function runTests (test) {
       logger.info('test test test')
       logger.end(() => {
         const log = fs.readFileSync(fileName).toString()
-        t.ok(log.startsWith('INFO'))
+        t.ok(log.includes('INFO'))
         t.ok(log.endsWith('test test test\n'))
       })
     })
