@@ -29,7 +29,7 @@ const logger = createLogger({
 logger.info('hello world')
 ```
 #### stream (optional)
-A Writable stream. Defaults to `process.stdout`.
+A Writable stream. If undefined a `ConsoleTransport` will be used.
 
 #### format (optional)
 
@@ -127,6 +127,12 @@ A format used to stringify the parameters passed to the loggers methods.
 
 #### level
 Sets the log level of the logger.
+
+### ConsoleTransport(options)
+
+#### format
+
+A format used to stringify the parameters passed to the loggers methods.
 
 ## License
 
