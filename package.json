@@ -28,5 +28,9 @@
     "logging",
     "logs",
     "stream"
-  ]
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SerayaEryn/apheleia.git"
+  }
 }
