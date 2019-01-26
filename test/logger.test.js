@@ -60,7 +60,7 @@ function runTests (test) {
       stream: new RotatingStream({ fileName })
     })
 
-    logger.info('test test test' , 'something', {test: 42}, () => {})
+    logger.info('test test test', 'something', { test: 42 }, () => {})
     logger.end(() => {
       const buffer = fs.readFileSync(fileName)
       t.ok(buffer.toString().includes('INFO'))

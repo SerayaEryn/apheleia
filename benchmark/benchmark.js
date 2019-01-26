@@ -68,10 +68,10 @@ new Benchmark.Suite()
       deferred.resolve()
     }
   })
-  .on('cycle', function(event) {
-    console.log(String(event.target));
+  .on('cycle', function (event) {
+    console.log(String(event.target))
   })
-  .on('complete', function() {
-    console.log('Fastest is ' + this.filter('fastest').map('name'));
+  .on('complete', function () {
+    console.log('Fastest is ' + this.filter('fastest').map('name'))
   })
   .run()
