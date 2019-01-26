@@ -18,6 +18,7 @@
     "fast-date-format": "^2.1.0"
   },
   "devDependencies": {
+    "@clevernature/benchmark-regression": "^1.0.1",
     "benchmark": "^2.1.4",
     "coveralls": "^3.0.2",
     "daily-rotating-file-stream": "^1.0.0",

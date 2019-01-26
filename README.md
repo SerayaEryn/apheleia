@@ -47,68 +47,29 @@ The levels used by the logger.
 #### level (optional)
 Sets the log level of the logger.
 
+#### transports (optional)
+
+Allows to set the transport of the logger.
+
 ### SimpleFormat([options])
 
-### Logger(options)
+### Logger
 
-Creates a new Logger instance.
-
-```js
-new Logger({
-  transports: [
-    new Transport({
-      stream: process.stdout,
-      format: new SimpleFormat()
-    }
-  ],
-  levels: {
-    TRACE: 0,
-    DEBUG: 1,
-    INFO: 2,
-    WARN: 3,
-    ERROR: 4,
-    FATAL: 5
-  },
-  level: 'DEBUG'
-})
-```
-
-#### transports
-
-An array of transports.
-
-#### levels (optional)
-The levels used by the logger.
-Defaults to :
-```js
-{
-  TRACE: 0,
-  DEBUG: 1,
-  INFO: 2,
-  WARN: 3,
-  ERROR: 4,
-  FATAL: 5
-}
-```
-
-#### level (optional)
-Sets the log level of the logger.
-
-### Logger#end(callback)
+#### Logger#end(callback)
 
 Ends the logger by calling `end()` on every transport and then calls the `callback`.
 
-### Logger#trace(message, ...args)
+#### Logger#trace(message, ...args)
 Writes a `TRACE` level log, if allowed by the `level` option.
-### Logger#debug(message, ...args)
+#### Logger#debug(message, ...args)
 Writes a `DEBUG` level log, if allowed by the `level` option.
-### Logger#info(message, ...args)
+#### Logger#info(message, ...args)
 Writes a `INFO` level log, if allowed by the `level` option.
-### Logger#warn(message, ...args)
+#### Logger#warn(message, ...args)
 Writes a `WARN` level log, if allowed by the `level` option.
-### Logger#error(message, ...args)
+#### Logger#error(message, ...args)
 Writes a `ERROR` level log, if allowed by the `level` option.
-### Logger#fatal(message, ...args)
+#### Logger#fatal(message, ...args)
 Writes a `FATAL` level log, if allowed by the `level` option.
 
 ### Transport(options)
