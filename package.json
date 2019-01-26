@@ -15,13 +15,16 @@
   "license": "MIT",
   "dependencies": {
     "async-each": "^1.0.1",
-    "fast-date-format": "^2.0.1"
+    "fast-date-format": "^2.1.0"
   },
   "devDependencies": {
+    "benchmark": "^2.1.4",
     "coveralls": "^3.0.2",
     "daily-rotating-file-stream": "^1.0.0",
+    "fast-file-rotate": "^1.0.1",
     "standard": "^12.0.1",
-    "tap": "^12.1.2"
+    "tap": "^12.1.2",
+    "winston": "^3.1.0"
   },
   "keywords": [
     "logger",
