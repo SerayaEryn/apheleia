@@ -24,7 +24,7 @@ test('', (t) => {
 })
 
 function runTests (test) {
-  test('should not log with level debug', (t) => {
+  test('should not log with level debug', async (t) => {
     t.plan(1)
     const fileName = getFile()
     const logger = createLogger({
@@ -32,13 +32,12 @@ function runTests (test) {
     })
 
     logger.debug('test test test')
-    logger.end(() => {
-      const log = fs.readFileSync(fileName).toString()
-      t.equals(log, '')
-    })
+    await logger.end()
+    const log = fs.readFileSync(fileName).toString()
+    t.equals(log, '')
   })
 
-  test('should log with level info', (t) => {
+  test('should log with level info', async (t) => {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
@@ -46,14 +45,13 @@ function runTests (test) {
     })
 
     logger.info('test test test')
-    logger.end(() => {
-      const buffer = fs.readFileSync(fileName)
-      t.ok(buffer.toString().includes('INFO'))
-      t.ok(buffer.toString().endsWith('test test test\n'))
-    })
+    await logger.end()
+    const buffer = fs.readFileSync(fileName)
+    t.ok(buffer.toString().includes('INFO'))
+    t.ok(buffer.toString().endsWith('test test test\n'))
   })
 
-  test('should log with level info', (t) => {
+  test('should log with level info', async (t) => {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
@@ -61,14 +59,13 @@ function runTests (test) {
     })
 
     logger.info('test test test', 'something', { test: 42 }, () => {})
-    logger.end(() => {
-      const buffer = fs.readFileSync(fileName)
-      t.ok(buffer.toString().includes('INFO'))
-      t.ok(buffer.toString().endsWith('test test test something\n{"test":42}\n'))
-    })
+    await logger.end()
+    const buffer = fs.readFileSync(fileName)
+    t.ok(buffer.toString().includes('INFO'))
+    t.ok(buffer.toString().endsWith('test test test something\n{"test":42}\n'))
   })
 
-  test('should log with level warn', (t) => {
+  test('should log with level warn', async (t) => {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
@@ -76,14 +73,13 @@ function runTests (test) {
     })
 
     logger.warn('test test test')
-    logger.end(() => {
-      const buffer = fs.readFileSync(fileName)
-      t.ok(buffer.toString().includes('WARN'))
-      t.ok(buffer.toString().endsWith('test test test\n'))
-    })
+    await logger.end()
+    const buffer = fs.readFileSync(fileName)
+    t.ok(buffer.toString().includes('WARN'))
+    t.ok(buffer.toString().endsWith('test test test\n'))
   })
 
-  test('should log with level error', (t) => {
+  test('should log with level error', async (t) => {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
@@ -91,14 +87,13 @@ function runTests (test) {
     })
 
     logger.error('test test test')
-    logger.end(() => {
-      const buffer = fs.readFileSync(fileName)
-      t.ok(buffer.toString().includes('ERROR'))
-      t.ok(buffer.toString().endsWith('test test test\n'))
-    })
+    await logger.end()
+    const buffer = fs.readFileSync(fileName)
+    t.ok(buffer.toString().includes('ERROR'))
+    t.ok(buffer.toString().endsWith('test test test\n'))
   })
 
-  test('should log stack', (t) => {
+  test('should log stack', async (t) => {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
@@ -106,14 +101,13 @@ function runTests (test) {
     })
 
     logger.error('test test test', new Error('booom'))
-    logger.end(() => {
-      const log = fs.readFileSync(fileName).toString()
-      t.ok(log.includes('ERROR'))
-      t.ok(log.includes('test test test\nError: booom\n'))
-    })
+    await logger.end()
+    const log = fs.readFileSync(fileName).toString()
+    t.ok(log.includes('ERROR'))
+    t.ok(log.includes('test test test\nError: booom\n'))
   })
 
-  test('should log stack with child', (t) => {
+  test('should log stack with child', async (t) => {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
@@ -123,14 +117,13 @@ function runTests (test) {
     const child = logger.child({ test: '42' })
 
     child.error('test test test', new Error('booom'))
-    logger.end(() => {
-      const log = fs.readFileSync(fileName).toString()
-      t.ok(log.includes('ERROR'))
-      t.ok(log.includes('test test test test=42\nError: booom\n'))
-    })
+    await logger.end()
+    const log = fs.readFileSync(fileName).toString()
+    t.ok(log.includes('ERROR'))
+    t.ok(log.includes('test test test test=42\nError: booom\n'))
   })
 
-  test('should use child logger', (t) => {
+  test('should use child logger', async (t) => {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
@@ -139,14 +132,13 @@ function runTests (test) {
     const child = logger.child({ test: '42' })
 
     child.info('test test test')
-    logger.end(() => {
-      const log = fs.readFileSync(fileName).toString()
-      t.ok(log.includes('INFO'))
-      t.ok(log.endsWith('test test test test=42\n'))
-    })
+    await logger.end()
+    const log = fs.readFileSync(fileName).toString()
+    t.ok(log.includes('INFO'))
+    t.ok(log.endsWith('test test test test=42\n'))
   })
 
-  test('should use child logger', (t) => {
+  test('should use child logger', async (t) => {
     t.plan(3)
     const fileName = getFile()
     const logger = createLogger({
@@ -154,15 +146,13 @@ function runTests (test) {
     })
     const child = logger.child({ test: '42' })
 
-    child.end(() => {
-      t.pass()
-      logger.info('test test test')
-      logger.end(() => {
-        const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('INFO'))
-        t.ok(log.endsWith('test test test\n'))
-      })
-    })
+    await child.end()
+    t.pass()
+    logger.info('test test test')
+    await logger.end()
+    const log = fs.readFileSync(fileName).toString()
+    t.ok(log.includes('INFO'))
+    t.ok(log.endsWith('test test test\n'))
   })
 
   test('should log with level trace to stdout', (t) => {
@@ -178,13 +168,14 @@ function runTests (test) {
 
     logger.trace('test test test')
     stream.on('finish', () => {
-      logger.end(() => {
-        process.stdout.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('TRACE'))
-        t.ok(log.endsWith('test test test\n'))
-      })
+      logger.end()
+        .then(() => {
+          process.stdout.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.ok(log.includes('TRACE'))
+          t.ok(log.endsWith('test test test\n'))
+        })
     })
     stream.end()
   })
@@ -202,13 +193,14 @@ function runTests (test) {
 
     logger.debug('test test test')
     stream.on('finish', () => {
-      logger.end(() => {
-        process.stdout.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('DEBUG'))
-        t.ok(log.endsWith('test test test\n'))
-      })
+      logger.end()
+        .then(() => {
+          process.stdout.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.ok(log.includes('DEBUG'))
+          t.ok(log.endsWith('test test test\n'))
+        })
     })
     stream.end()
   })
@@ -226,13 +218,14 @@ function runTests (test) {
 
     logger.info('test test test')
     stream.on('finish', () => {
-      logger.end(() => {
-        process.stdout.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('INFO'))
-        t.ok(log.endsWith('test test test\n'))
-      })
+      logger.end()
+        .then(() => {
+          process.stdout.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.ok(log.includes('INFO'))
+          t.ok(log.endsWith('test test test\n'))
+        })
     })
     stream.end()
   })
@@ -248,13 +241,14 @@ function runTests (test) {
 
     logger.warn('test test test')
     stream.on('finish', () => {
-      logger.end(() => {
-        process.stderr.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('WARN'))
-        t.ok(log.endsWith('test test test\n'))
-      })
+      logger.end()
+        .then(() => {
+          process.stderr.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.ok(log.includes('WARN'))
+          t.ok(log.endsWith('test test test\n'))
+        })
     })
     stream.end()
   })
@@ -272,13 +266,14 @@ function runTests (test) {
 
     logger.error('test test test')
     stream.on('finish', () => {
-      logger.end(() => {
-        process.stderr.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('ERROR'))
-        t.ok(log.endsWith('test test test\n'))
-      })
+      logger.end()
+        .then(() => {
+          process.stderr.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.ok(log.includes('ERROR'))
+          t.ok(log.endsWith('test test test\n'))
+        })
     })
     stream.end()
   })
@@ -296,13 +291,14 @@ function runTests (test) {
 
     logger.fatal('test test test')
     stream.on('finish', () => {
-      logger.end(() => {
-        process.stderr.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('FATAL'))
-        t.ok(log.endsWith('test test test\n'))
-      })
+      logger.end()
+        .then(() => {
+          process.stderr.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.ok(log.includes('FATAL'))
+          t.ok(log.endsWith('test test test\n'))
+        })
     })
     stream.end()
   })

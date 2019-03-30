@@ -55,9 +55,9 @@ Allows to set the transport of the logger.
 
 ### Logger
 
-#### Logger#end(callback)
+#### Logger#end()
 
-Ends the logger by calling `end()` on every transport and then calls the `callback`.
+Ends the logger by calling `end()` on every transport. Returns a Promise.
 
 #### Logger#trace(message, ...args)
 Writes a `TRACE` level log, if allowed by the `level` option.
