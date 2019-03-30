@@ -17,7 +17,7 @@
     "fast-date-format": "^2.1.0"
   },
   "engines": {
-    "node": ">= 6.0.0"
+    "node": ">= 8.0.0"
   },
   "devDependencies": {
     "@clevernature/benchmark-regression": "^1.0.1",
