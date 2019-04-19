@@ -1,12 +1,16 @@
 
 'use strict'
 
-const Benchmark = require('benchmark')
+const benchmark = require('fastbench')
 const winston = require('winston')
 const fs = require('fs')
-const { createLogger } = require('..')
+const { createLogger, JsonFormat } = require('..')
 const RotatingTransport = require('fast-file-rotate')
 const RotatingStream = require('daily-rotating-file-stream')
+const pino = require('pino')
+
+const pinoLogger = pino(fs.createWriteStream('/dev/null'))
+const pinoExtreme = pino(pino.extreme('/dev/null'))
 
 const winstonLogger = winston.createLogger({
   transports: [
@@ -24,54 +28,72 @@ const winstonLogger2 = winston.createLogger({
   ],
   format: winston.format.simple()
 })
-const logger = createLogger({
+const apheleiaLogger = createLogger({
   stream: fs.createWriteStream('/dev/null')
 })
 const logger2 = createLogger({
   stream: new RotatingStream({ fileName: '/dev/null' })
 })
 
-new Benchmark.Suite()
-  .add('winston', {
-    defer: true,
-    fn: function (deferred) {
-      for (var i = 0; i < 20; i++) {
-        winstonLogger.log('info', 'hello world')
-      }
-      deferred.resolve()
+const apheleiaLoggerJson = createLogger({
+  stream: fs.createWriteStream('/dev/null'),
+  format: new JsonFormat()
+})
+
+const logger4 = createLogger({
+  stream: new RotatingStream({ fileName: '/dev/null' }),
+  format: new JsonFormat()
+})
+
+const run = benchmark([
+  function benchWinston (cb) {
+    for (let i = 0; i < 10; i++) {
+      winstonLogger.info('hello world')
     }
-  })
-  .add('winston - fast-file-rotate', {
-    defer: true,
-    fn: function (deferred) {
-      for (var i = 0; i < 20; i++) {
-        winstonLogger2.log('info', 'hello world')
-      }
-      deferred.resolve()
+    setImmediate(cb)
+  },
+  function benchWinstonFastFileRotate (cb) {
+    for (let i = 0; i < 10; i++) {
+      winstonLogger2.info('hello world')
     }
-  })
-  .add('apheleia', {
-    defer: true,
-    fn: function (deferred) {
-      for (var i = 0; i < 20; i++) {
-        logger.info('hello world')
-      }
-      deferred.resolve()
+    setImmediate(cb)
+  },
+  function benchApheleia (cb) {
+    for (let i = 0; i < 10; i++) {
+      apheleiaLogger.info('hello world')
     }
-  })
-  .add('apheleia - daily-rotating-file-stream', {
-    defer: true,
-    fn: function (deferred) {
-      for (var i = 0; i < 20; i++) {
-        logger2.info('hello world')
-      }
-      deferred.resolve()
+    setImmediate(cb)
+  },
+  function benchPino (cb) {
+    for (let i = 0; i < 10; i++) {
+      pinoLogger.info('hello world')
     }
-  })
-  .on('cycle', function (event) {
-    console.log(String(event.target))
-  })
-  .on('complete', function () {
-    console.log('Fastest is ' + this.filter('fastest').map('name'))
-  })
-  .run()
+    setImmediate(cb)
+  },
+  function benchApheleiaJson (cb) {
+    for (let i = 0; i < 10; i++) {
+      apheleiaLoggerJson.info('hello world')
+    }
+    setImmediate(cb)
+  },
+  function benchApheleiaDailyRotatingFileStream (cb) {
+    for (let i = 0; i < 10; i++) {
+      logger2.info('hello world')
+    }
+    setImmediate(cb)
+  },
+  function benchPinoExtreme (cb) {
+    for (let i = 0; i < 10; i++) {
+      pinoExtreme.info('hello world')
+    }
+    setImmediate(cb)
+  },
+  function benchApheleiaJsonDailyRotatingFileStream (cb) {
+    for (let i = 0; i < 10; i++) {
+      logger4.info('hello world')
+    }
+    setImmediate(cb)
+  }
+], 100000)
+
+run(run)
