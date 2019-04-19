@@ -21,7 +21,6 @@
     "node": ">= 8.0.0"
   },
   "devDependencies": {
-    "@clevernature/benchmark-regression": "^1.0.1",
     "coveralls": "^3.0.2",
     "fastbench": "^1.0.1",
     "pino": "^5.12.2",
