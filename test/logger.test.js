@@ -2,7 +2,6 @@
 
 const { test, tearDown } = require('tap')
 const { createLogger } = require('..')
-const RotatingStream = require('daily-rotating-file-stream')
 const fs = require('fs')
 
 const files = []
@@ -28,7 +27,7 @@ function runTests (test) {
     t.plan(1)
     const fileName = getFile()
     const logger = createLogger({
-      stream: new RotatingStream({ fileName })
+      stream: fs.createWriteStream(fileName)
     })
 
     logger.debug('test test test')
@@ -41,7 +40,7 @@ function runTests (test) {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
-      stream: new RotatingStream({ fileName })
+      stream: fs.createWriteStream(fileName)
     })
 
     logger.info('test test test')
@@ -55,7 +54,7 @@ function runTests (test) {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
-      stream: new RotatingStream({ fileName })
+      stream: fs.createWriteStream(fileName)
     })
 
     logger.info('test test test', 'something', { test: 42 }, () => {})
@@ -69,7 +68,7 @@ function runTests (test) {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
-      stream: new RotatingStream({ fileName })
+      stream: fs.createWriteStream(fileName)
     })
 
     logger.warn('test test test')
@@ -83,7 +82,7 @@ function runTests (test) {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
-      stream: new RotatingStream({ fileName })
+      stream: fs.createWriteStream(fileName)
     })
 
     logger.error('test test test')
@@ -97,7 +96,7 @@ function runTests (test) {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
-      stream: new RotatingStream({ fileName })
+      stream: fs.createWriteStream(fileName)
     })
 
     logger.error('test test test', new Error('booom'))
@@ -111,7 +110,7 @@ function runTests (test) {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
-      stream: new RotatingStream({ fileName })
+      stream: fs.createWriteStream(fileName)
     })
 
     const child = logger.child({ test: '42' })
@@ -127,7 +126,7 @@ function runTests (test) {
     t.plan(2)
     const fileName = getFile()
     const logger = createLogger({
-      stream: new RotatingStream({ fileName })
+      stream: fs.createWriteStream(fileName)
     })
     const child = logger.child({ test: '42' })
 
@@ -142,7 +141,7 @@ function runTests (test) {
     t.plan(3)
     const fileName = getFile()
     const logger = createLogger({
-      stream: new RotatingStream({ fileName })
+      stream: fs.createWriteStream(fileName)
     })
     const child = logger.child({ test: '42' })
 

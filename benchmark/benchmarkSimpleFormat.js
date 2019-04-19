@@ -4,7 +4,7 @@
 const benchmark = require('fastbench')
 const winston = require('winston')
 const fs = require('fs')
-const { createLogger, JsonFormat } = require('../lib/Apheleia')
+const { createLogger } = require('../lib/Apheleia')
 const SonicBoom = require('sonic-boom')
 
 const winstonLogger = winston.createLogger({
@@ -42,7 +42,7 @@ const run = benchmark([
       apheleiaLoggerSonicBoom.info('hello world')
     }
     setImmediate(cb)
-  },
+  }
 ], 100000)
 
 run(run)
