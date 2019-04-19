@@ -16,7 +16,7 @@ npm i apheleia
 ## Usage
 
 ```js
-const { createLogger } = require('.')
+const { createLogger } = require('apheleia')
 
 const logger = createLogger()
 logger.info('hello world')
@@ -37,11 +37,12 @@ This logs the following lines:
 * [Formats](#formats)
 * [Child Loggers](#child-loggers)
 * [API](#api)
+* [Benchmarks](#benchmarks)
 
 ## Transports
 
-Transports are a combination of a stream and a format.
-`apheleia` provides two transports: `Transport` and `ConsoleTransport`.
+Transports are a combination of a stream and a format.<br>
+There are two built-in transports: `Transport` and `ConsoleTransport`.
 
 ### Transport
 
@@ -56,7 +57,7 @@ const transport = new Transport({
 
 ### ConsoleTransport
 
-The `ConsoleTransport` is a transport that logs to stdout and stderr.<br>
+The `ConsoleTransport` is a transport that logs to `stdout` and `stderr`.<br>
 Levels being logged to stdout: `TRACE`, `DEBUG`, `INFO`<br>
 Levels being logged to stderr: `WARN`, `ERROR`, `FATAL`
 ```js
@@ -82,8 +83,11 @@ interface Format {
 
 ## Child Loggers
 
+Child loggers allow to create loggers with additional information; for example an id of a request or the name of a module.<br>
+The provided additional information will be included every time a logging functions is being called on the child logger.
+
 ```js
-const child = parentLogger.child({ child: true })
+const child = parentLogger.child({ requestId: 'abcd' })
 child.info('hello world!')
 ```
 
@@ -98,7 +102,7 @@ child.info('hello world!')
 
 <a id="createlogger"></a>
 ### createLogger([options]): Logger
-Creates a new Logger instance.
+Creates a new [`Logger`](#logger) instance.
 
 ```js
 const { createLogger, SimpleFormat } = require('apheleia')
@@ -179,11 +183,33 @@ new Transport({
 
 A format used to stringify the parameters passed to the loggers methods.
 
+#### stderrLevels
+
 <a id="simpleformatapi"></a>
 ### SimpleFormat([options])
 
 <a id="jsonformatapi"></a>
 ### JsonFormat([options])
+
+## Benchmarks
+
+### Json
+
+| Logger               | Duration |
+|----------------------|----------|
+| Winston              | 5393 ms  |
+| Pino                 | 2171 ms  |
+| Apheleia             | 2083 ms  |
+| Pino - Extreme       | 994 ms   |      
+| Apheleia - SonicBoom | 674 ms   |
+
+### Non-Json
+
+| Logger               | Duration |
+|----------------------|----------|
+| Winston              | 5359 ms  |
+| Apheleia             | 2469 ms  |
+| Apheleia - SonicBoom | 1078 ms  |
 
 ## License
 

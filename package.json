@@ -9,7 +9,7 @@
     "lint": "standard DateFormatter.js lib/* test/* benchmark/*",
     "coveralls": "npm run unit --  --cov",
     "coverage": "npm run coveralls && tap --coverage-report=lcov",
-    "benchmark": "node benchmark/benchmark.js"
+    "benchmark": "node benchmark/benchmarkSimpleFormat.js && node benchmark/benchmarkJsonFormat.js"
   },
   "author": "Denis Fäcke",
   "license": "MIT",
@@ -23,10 +23,9 @@
   "devDependencies": {
     "@clevernature/benchmark-regression": "^1.0.1",
     "coveralls": "^3.0.2",
-    "daily-rotating-file-stream": "^1.0.0",
-    "fast-file-rotate": "^1.0.1",
     "fastbench": "^1.0.1",
     "pino": "^5.12.2",
+    "sonic-boom": "^0.7.3",
     "standard": "^12.0.1",
     "tap": "^12.1.2",
     "winston": "^3.1.0"
