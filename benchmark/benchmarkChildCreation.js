@@ -4,7 +4,6 @@ const bench = require('fastbench')
 const fs = require('fs')
 const { createLogger, JsonFormat } = require('../lib/Apheleia')
 const pino = require('pino')
-const SonicBoom = require('sonic-boom')
 const winston = require('winston')
 
 const pinoLogger = pino(fs.createWriteStream('/dev/null'))
@@ -23,27 +22,24 @@ const apheleiaLoggerJson = createLogger({
   format: new JsonFormat()
 })
 
-const apheleiaLoggerJsonSonicBoom = createLogger({
-  stream: new SonicBoom('/dev/null', 16 * 1024),
-  format: new JsonFormat()
-})
+console.log('\nChild Creation:\n')
 
 const run = bench([
   function benchWinston (cb) {
     for (let i = 0; i < 10; i++) {
-      winstonLogger.child({ module: 'test '})
+      winstonLogger.child({ module: 'test' })
     }
     setImmediate(cb)
   },
   function benchPino (cb) {
     for (let i = 0; i < 10; i++) {
-      pinoLogger.child({ module: 'test '})
+      pinoLogger.child({ module: 'test' })
     }
     setImmediate(cb)
   },
   function benchApheleia (cb) {
     for (let i = 0; i < 10; i++) {
-      apheleiaLoggerJson.child({ module: 'test '})
+      apheleiaLoggerJson.child({ module: 'test' })
     }
     setImmediate(cb)
   }

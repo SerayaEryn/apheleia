@@ -126,18 +126,14 @@ A format. Defaults to an instance of `SimpleFormat`.<br>
 Sets the log level of the logger. <br>
 Default: `INFO`
 
-#### levels (optional)
-The levels used by the logger.<br>
-Default: `{ TRACE: 10, DEBUG: 20, INFO: 30, WARN: 40, ERROR: 50, FATAL: 60 }`
-
 #### transports (optional)
 
 Allows to set the transport of the logger.
 
 ### Logger
 
-The logger provides a logging method for each level.<br>
-If the default levels are being used the following logging methods will be available:
+The logger supports the following levels: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR` & `FATAL`
+The logger provides a logging method for each level:
 
 #### Logger#trace(message: string, ...args): void
 Writes a `TRACE` level log, if allowed by the `level` option.
@@ -210,6 +206,24 @@ A format used to stringify the parameters passed to the loggers methods.
 | Winston              | 5359 ms  |
 | Apheleia             | 2469 ms  |
 | Apheleia - SonicBoom | 1078 ms  |
+
+### Child Logging
+
+| Logger               | Duration |
+|----------------------|----------|
+| Winston              | 6067 ms  |
+| Pino                 | 2307 ms  |
+| Apheleia             | 2190 ms  |
+| Pino - Extreme       | 1088 ms  |      
+| Apheleia - SonicBoom | 748 ms   |
+
+### Child Creation
+
+| Logger               | Duration |
+|----------------------|----------|
+| Winston              | 995 ms   |
+| Pino                 | 918 ms   |
+| Apheleia             | 367 ms   |
 
 ## License
 

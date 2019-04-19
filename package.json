@@ -9,7 +9,7 @@
     "lint": "standard DateFormatter.js lib/* test/* benchmark/*",
     "coveralls": "npm run unit --  --cov",
     "coverage": "npm run coveralls && tap --coverage-report=lcov",
-    "benchmark": "node benchmark/benchmarkSimpleFormat.js && node benchmark/benchmarkJsonFormat.js"
+    "benchmark": "node benchmark/benchmarkSimpleFormat.js && node benchmark/benchmarkJsonFormat.js && node benchmark/benchmarkChildLogging.js && node benchmark/benchmarkChildCreation.js"
   },
   "author": "Denis Fäcke",
   "license": "MIT",

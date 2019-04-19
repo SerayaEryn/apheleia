@@ -7,8 +7,8 @@ const pino = require('pino')
 const SonicBoom = require('sonic-boom')
 const winston = require('winston')
 
-const pinoLogger = pino(fs.createWriteStream('/dev/null')).child({ module: 'test '})
-const pinoExtreme = pino(pino.extreme('/dev/null')).child({ module: 'test '})
+const pinoLogger = pino(fs.createWriteStream('/dev/null')).child({ module: 'test' })
+const pinoExtreme = pino(pino.extreme('/dev/null')).child({ module: 'test' })
 
 const winstonLogger = winston.createLogger({
   transports: [
@@ -17,17 +17,19 @@ const winstonLogger = winston.createLogger({
       format: winston.format.json()
     })
   ]
-}).child({ module: 'test '})
+}).child({ module: 'test' })
 
 const apheleiaLoggerJson = createLogger({
   stream: fs.createWriteStream('/dev/null'),
   format: new JsonFormat()
-}).child({ module: 'test '})
+}).child({ module: 'test' })
 
 const apheleiaLoggerJsonSonicBoom = createLogger({
   stream: new SonicBoom('/dev/null', 16 * 1024),
   format: new JsonFormat()
-}).child({ module: 'test '})
+}).child({ module: 'test' })
+
+console.log('\nChild Logging:\n')
 
 const run = bench([
   function benchWinston (cb) {
