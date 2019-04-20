@@ -4,7 +4,7 @@
   "description": "A simplistic logger.",
   "main": "lib/Apheleia.js",
   "scripts": {
-    "unit": "tap test/*.test.js",
+    "unit": "tap test/*Test.js",
     "test": "npm run lint && npm run unit",
     "lint": "standard DateFormatter.js lib/* test/* benchmark/*",
     "coveralls": "npm run unit --  --cov",

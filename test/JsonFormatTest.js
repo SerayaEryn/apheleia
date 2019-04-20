@@ -1,7 +1,7 @@
 'use strict'
 
 const { test } = require('tap')
-const { JsonFormat } = require('..')
+const { JsonFormat } = require('../lib/Apheleia')
 
 test('simple message', (t) => {
   t.plan(1)
