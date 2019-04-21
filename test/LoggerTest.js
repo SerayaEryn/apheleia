@@ -248,6 +248,36 @@ test('should log with level fatal to stderr', (t) => {
   stream.end()
 })
 
+test('should return level', (t) => {
+  t.plan(1)
+  const logger = createLogger()
+
+  const level = logger.getLevel()
+
+  t.equals('INFO', level)
+})
+
+test('should be able to change level', (t) => {
+  t.plan(1)
+  const logger = createLogger()
+
+  logger.setLevel('TRACE')
+  const level = logger.getLevel()
+
+  t.equals('TRACE', level)
+})
+
+test('should throw if trying to change to unknown level', (t) => {
+  t.plan(1)
+  const logger = createLogger()
+
+  try {
+    logger.setLevel('TEST')
+  } catch (error) {
+    t.equals(error.code, 'APH_ERR_UNKNOWN_LEVEL')
+  }
+})
+
 function getFile () {
   const file = `${__dirname}/console${count++}.log`
   files.push(file)
