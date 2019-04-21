@@ -12,6 +12,15 @@ test('simple message', (t) => {
   t.ok(/{"timestamp":\d{13},"level":30,"msg":"hello world!"}/.test(line))
 })
 
+test('simple message with no timestamp caching', (t) => {
+  t.plan(1)
+  const format = new JsonFormat({ fastTimestamp: false })
+
+  const line = format.transform('INFO', 'hello world!', [])
+
+  t.ok(/{"timestamp":\d{13},"level":30,"msg":"hello world!"}/.test(line))
+})
+
 test('object arg #1', (t) => {
   t.plan(1)
   const format = new JsonFormat()

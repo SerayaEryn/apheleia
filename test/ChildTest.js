@@ -84,7 +84,6 @@ test('should use child child logger', async (t) => {
   childChild.info('test test test')
   await logger.end()
   const log = fs.readFileSync(fileName).toString()
-  console.log(log)
   t.ok(log.includes('INFO'))
   t.ok(log.endsWith('test test test requestId=42 country=DE\n'))
 })
