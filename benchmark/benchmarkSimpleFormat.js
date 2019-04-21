@@ -4,7 +4,7 @@
 const benchmark = require('fastbench')
 const winston = require('winston')
 const fs = require('fs')
-const { createLogger } = require('../lib/Apheleia')
+const { createLogger, SimpleFormat } = require('../lib/Apheleia')
 const SonicBoom = require('sonic-boom')
 
 const winstonLogger = winston.createLogger({
@@ -16,10 +16,12 @@ const winstonLogger = winston.createLogger({
   ]
 })
 const apheleiaLogger = createLogger({
-  stream: fs.createWriteStream('/dev/null')
+  stream: fs.createWriteStream('/dev/null'),
+  format: new SimpleFormat({ fastTimestamp: false })
 })
 const apheleiaLoggerSonicBoom = createLogger({
-  stream: new SonicBoom('/dev/null', 16 * 1024)
+  stream: new SonicBoom('/dev/null', 16 * 1024),
+  format: new SimpleFormat({ fastTimestamp: false })
 })
 
 console.log('SimpleFormat:\n')
