@@ -12,9 +12,9 @@ test('simple message', (t) => {
   t.ok(/{"timestamp":\d{13},"level":30,"msg":"hello world!"}/.test(line))
 })
 
-test('simple message with no timestamp caching', (t) => {
+test('simple message with timestamp caching', (t) => {
   t.plan(1)
-  const format = new JsonFormat({ fastTimestamp: false })
+  const format = new JsonFormat({ fastTimestamp: true })
 
   const line = format.transform('INFO', 'hello world!', [])
 
@@ -108,7 +108,7 @@ test('should prepare meta', (t) => {
   t.plan(1)
   const format = new JsonFormat()
 
-  const partialLine = format.prepareMeta({ test: 42 })
+  const partialLine = format.formatMetaDataObject({ test: 42 })
 
   t.equals(partialLine, ',"test":42')
 })
@@ -117,7 +117,7 @@ test('should prepare undefined meta', (t) => {
   t.plan(1)
   const format = new JsonFormat()
 
-  const partialLine = format.prepareMeta()
+  const partialLine = format.formatMetaDataObject()
 
   t.equals(partialLine, '')
 })

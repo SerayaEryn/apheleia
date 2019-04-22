@@ -44,6 +44,21 @@ test('should log with level info', async (t) => {
   t.ok(buffer.toString().endsWith('test test test\n'))
 })
 
+test('should add meta data', async (t) => {
+  t.plan(2)
+  const fileName = getFile()
+  const logger = createLogger({
+    stream: fs.createWriteStream(fileName)
+  })
+  logger.addMetaData('test', 42)
+
+  logger.info('test test test')
+  await logger.end()
+  const buffer = fs.readFileSync(fileName)
+  t.ok(buffer.toString().includes('INFO'))
+  t.ok(buffer.toString().endsWith('test test test test=42\n'))
+})
+
 test('should log with level info', async (t) => {
   t.plan(2)
   const fileName = getFile()

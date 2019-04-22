@@ -78,6 +78,8 @@ Custom formats can be created by implementing the following interface:
 ```ts
 interface Format {
   transform (level: string, message: string, args: any[], meta: object | undefined): string
+  formatMetaDataObject (meta: object): string
+  formatMetaData (key: string, value: any): string {
 }
 ```
 
@@ -155,6 +157,10 @@ Creates a child logger with additional data.
 #### Logger#end(): Promise\<void>
 
 Ends the logger by calling `end()` on every transport. Returns a Promise.
+
+#### Logger#addMetaData (key: string, value: any): void
+
+Allows to add additional meta data to a logger or child logger.
 
 <a id="transportapi"></a>
 ### Transport(options)

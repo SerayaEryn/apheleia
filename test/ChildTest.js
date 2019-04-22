@@ -54,6 +54,23 @@ test('should use child logger', async (t) => {
   t.ok(log.endsWith('test test test test=42\n'))
 })
 
+test('should add additional meta data to child logger', async (t) => {
+  t.plan(2)
+  const fileName = getFile()
+  const logger = createLogger({
+    stream: fs.createWriteStream(fileName)
+  })
+  const child = logger.child({ test: '42' })
+
+  child.addMetaData('country', 'DE')
+
+  child.info('test test test')
+  await logger.end()
+  const log = fs.readFileSync(fileName).toString()
+  t.ok(log.includes('INFO'))
+  t.ok(log.endsWith('test test test test=42 country=DE\n'))
+})
+
 test('parent logger should remain functional', async (t) => {
   t.plan(4)
   const fileName = getFile()
