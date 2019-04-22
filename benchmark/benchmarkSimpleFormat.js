@@ -17,11 +17,11 @@ const winstonLogger = winston.createLogger({
 })
 const apheleiaLogger = createLogger({
   stream: fs.createWriteStream('/dev/null'),
-  format: new SimpleFormat({ fastTimestamp: false })
+  format: new SimpleFormat()
 })
 const apheleiaLoggerSonicBoom = createLogger({
   stream: new SonicBoom('/dev/null', 16 * 1024),
-  format: new SimpleFormat({ fastTimestamp: false })
+  format: new SimpleFormat()
 })
 
 console.log('SimpleFormat:\n')

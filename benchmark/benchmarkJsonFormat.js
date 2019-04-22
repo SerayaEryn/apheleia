@@ -21,12 +21,12 @@ const winstonLogger = winston.createLogger({
 
 const apheleiaLoggerJson = createLogger({
   stream: fs.createWriteStream('/dev/null'),
-  format: new JsonFormat({ fastTimestamp: false })
+  format: new JsonFormat()
 })
 
 const apheleiaLoggerJsonSonicBoom = createLogger({
   stream: new SonicBoom('/dev/null', 16 * 1024),
-  format: new JsonFormat({ fastTimestamp: false })
+  format: new JsonFormat()
 })
 
 console.log('\nJsonFormat:\n')
