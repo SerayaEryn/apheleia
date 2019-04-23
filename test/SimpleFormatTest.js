@@ -1,6 +1,6 @@
 'use strict'
 
-const { test, tearDown } = require('tap')
+const { test } = require('tap')
 const { SimpleFormat } = require('../lib/Apheleia')
 
 test('should handle undefined meta', (t) => {
