@@ -33,9 +33,9 @@ This logs the following lines:
 
 ## Documentation
 
-* [API](./docs/API)
-* [Benchmarks](./docs/Benchmarks)
-* [Transports & Formats](./docs/TransportsAndFormats)
+* [API](./docs/API.md)
+* [Benchmarks](./docs/Benchmarks.md)
+* [Transports & Formats](./docs/TransportsAndFormats.md)
 
 ## License
 
