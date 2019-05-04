@@ -1,13 +1,13 @@
 'use strict'
 
-const { test, tearDown } = require('tap')
+const test = require('ava')
 const { createLogger } = require('../lib/Apheleia')
 const fs = require('fs')
 
 const files = []
 var count = 0
 
-tearDown(() => {
+test.after.always(() => {
   files.forEach((file) => {
     try {
       fs.unlinkSync(file)
@@ -17,7 +17,7 @@ tearDown(() => {
   })
 })
 
-test('should not log with level debug', async (t) => {
+test.serial('should not log with level debug', async (t) => {
   t.plan(1)
   const fileName = getFile()
   const logger = createLogger({
@@ -26,8 +26,12 @@ test('should not log with level debug', async (t) => {
 
   logger.debug('test test test')
   await logger.end()
-  const log = fs.readFileSync(fileName).toString()
-  t.equals(log, '')
+  if (fs.existsSync(fileName)) {
+    const log = fs.readFileSync(fileName).toString()
+    t.is(log, '')
+  } else {
+    t.pass()
+  }
 })
 
 test('should log with level info', async (t) => {
@@ -40,8 +44,8 @@ test('should log with level info', async (t) => {
   logger.info('test test test')
   await logger.end()
   const buffer = fs.readFileSync(fileName)
-  t.ok(buffer.toString().includes('INFO'))
-  t.ok(buffer.toString().endsWith('test test test\n'))
+  t.truthy(buffer.toString().includes('INFO'))
+  t.truthy(buffer.toString().endsWith('test test test\n'))
 })
 
 test('should add meta data', async (t) => {
@@ -55,11 +59,11 @@ test('should add meta data', async (t) => {
   logger.info('test test test')
   await logger.end()
   const buffer = fs.readFileSync(fileName)
-  t.ok(buffer.toString().includes('INFO'))
-  t.ok(buffer.toString().endsWith('test test test test=42\n'))
+  t.truthy(buffer.toString().includes('INFO'))
+  t.truthy(buffer.toString().endsWith('test test test test=42\n'))
 })
 
-test('should log with level info', async (t) => {
+test('should log with level info and include object', async (t) => {
   t.plan(2)
   const fileName = getFile()
   const logger = createLogger({
@@ -69,8 +73,8 @@ test('should log with level info', async (t) => {
   logger.info('test test test', 'something', { test: 42 }, () => {})
   await logger.end()
   const buffer = fs.readFileSync(fileName)
-  t.ok(buffer.toString().includes('INFO'))
-  t.ok(buffer.toString().endsWith('test test test something\n{"test":42}\n'))
+  t.truthy(buffer.toString().includes('INFO'))
+  t.truthy(buffer.toString().endsWith('test test test something\n{"test":42}\n'))
 })
 
 test('should log with level warn', async (t) => {
@@ -83,8 +87,8 @@ test('should log with level warn', async (t) => {
   logger.warn('test test test')
   await logger.end()
   const buffer = fs.readFileSync(fileName)
-  t.ok(buffer.toString().includes('WARN'))
-  t.ok(buffer.toString().endsWith('test test test\n'))
+  t.truthy(buffer.toString().includes('WARN'))
+  t.truthy(buffer.toString().endsWith('test test test\n'))
 })
 
 test('should log with level error', async (t) => {
@@ -97,8 +101,8 @@ test('should log with level error', async (t) => {
   logger.error('test test test')
   await logger.end()
   const buffer = fs.readFileSync(fileName)
-  t.ok(buffer.toString().includes('ERROR'))
-  t.ok(buffer.toString().endsWith('test test test\n'))
+  t.truthy(buffer.toString().includes('ERROR'))
+  t.truthy(buffer.toString().endsWith('test test test\n'))
 })
 
 test('should log stack', async (t) => {
@@ -111,11 +115,11 @@ test('should log stack', async (t) => {
   logger.error('test test test', new Error('booom'))
   await logger.end()
   const log = fs.readFileSync(fileName).toString()
-  t.ok(log.includes('ERROR'))
-  t.ok(log.includes('test test test\nError: booom\n'))
+  t.truthy(log.includes('ERROR'))
+  t.truthy(log.includes('test test test\nError: booom\n'))
 })
 
-test('should log with level trace to stdout', (t) => {
+test.cb('should log with level trace to stdout', (t) => {
   t.plan(3)
   const fileName = getFile()
   const logger = createLogger({
@@ -133,14 +137,15 @@ test('should log with level trace to stdout', (t) => {
         process.stdout.write = originalWrite
         t.pass('end cb called')
         const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('TRACE'))
-        t.ok(log.endsWith('test test test\n'))
+        t.truthy(log.includes('TRACE'))
+        t.truthy(log.endsWith('test test test\n'))
+        t.end()
       })
   })
   stream.end()
 })
 
-test('should log with level debug to stdout', (t) => {
+test.cb('should log with level debug to stdout', (t) => {
   t.plan(3)
   const fileName = getFile()
   const logger = createLogger({
@@ -158,14 +163,15 @@ test('should log with level debug to stdout', (t) => {
         process.stdout.write = originalWrite
         t.pass('end cb called')
         const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('DEBUG'))
-        t.ok(log.endsWith('test test test\n'))
+        t.truthy(log.includes('DEBUG'))
+        t.truthy(log.endsWith('test test test\n'))
+        t.end()
       })
   })
   stream.end()
 })
 
-test('should log with level info to stdout', (t) => {
+test.cb('should log with level info to stdout', (t) => {
   t.plan(3)
   const fileName = getFile()
   const logger = createLogger({
@@ -183,14 +189,15 @@ test('should log with level info to stdout', (t) => {
         process.stdout.write = originalWrite
         t.pass('end cb called')
         const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('INFO'))
-        t.ok(log.endsWith('test test test\n'))
+        t.truthy(log.includes('INFO'))
+        t.truthy(log.endsWith('test test test\n'))
+        t.end()
       })
   })
   stream.end()
 })
 
-test('should log with level warn to stderr', (t) => {
+test.cb('should log with level warn to stderr', (t) => {
   t.plan(3)
   const fileName = getFile()
   const logger = createLogger({})
@@ -206,14 +213,15 @@ test('should log with level warn to stderr', (t) => {
         process.stderr.write = originalWrite
         t.pass('end cb called')
         const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('WARN'))
-        t.ok(log.endsWith('test test test\n'))
+        t.truthy(log.includes('WARN'))
+        t.truthy(log.endsWith('test test test\n'))
+        t.end()
       })
   })
   stream.end()
 })
 
-test('should log with level error to stderr', (t) => {
+test.cb('should log with level error to stderr', (t) => {
   t.plan(3)
   const fileName = getFile()
   const logger = createLogger({
@@ -231,14 +239,15 @@ test('should log with level error to stderr', (t) => {
         process.stderr.write = originalWrite
         t.pass('end cb called')
         const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('ERROR'))
-        t.ok(log.endsWith('test test test\n'))
+        t.truthy(log.includes('ERROR'))
+        t.truthy(log.endsWith('test test test\n'))
+        t.end()
       })
   })
   stream.end()
 })
 
-test('should log with level fatal to stderr', (t) => {
+test.cb('should log with level fatal to stderr', (t) => {
   t.plan(3)
   const fileName = getFile()
   const logger = createLogger({
@@ -256,8 +265,9 @@ test('should log with level fatal to stderr', (t) => {
         process.stderr.write = originalWrite
         t.pass('end cb called')
         const log = fs.readFileSync(fileName).toString()
-        t.ok(log.includes('FATAL'))
-        t.ok(log.endsWith('test test test\n'))
+        t.truthy(log.includes('FATAL'))
+        t.truthy(log.endsWith('test test test\n'))
+        t.end()
       })
   })
   stream.end()
@@ -269,7 +279,7 @@ test('should return level', (t) => {
 
   const level = logger.getLevel()
 
-  t.equals('INFO', level)
+  t.is('INFO', level)
 })
 
 test('should be able to change level', (t) => {
@@ -279,7 +289,7 @@ test('should be able to change level', (t) => {
   logger.setLevel('TRACE')
   const level = logger.getLevel()
 
-  t.equals('TRACE', level)
+  t.is('TRACE', level)
 })
 
 test('should throw if trying to change to unknown level', (t) => {
@@ -289,7 +299,7 @@ test('should throw if trying to change to unknown level', (t) => {
   try {
     logger.setLevel('TEST')
   } catch (error) {
-    t.equals(error.code, 'APH_ERR_UNKNOWN_LEVEL')
+    t.is(error.code, 'APH_ERR_UNKNOWN_LEVEL')
   }
 })
 

@@ -1,13 +1,13 @@
 'use strict'
 
-const { test, tearDown } = require('tap')
+const test = require('ava')
 const { createLogger } = require('../lib/Apheleia')
 const fs = require('fs')
 
 const files = []
-var count = 0
+var count = 50
 
-tearDown(() => {
+test.after.always(() => {
   files.forEach((file) => {
     try {
       fs.unlinkSync(file)
@@ -35,8 +35,8 @@ test('should log stack with child', async (t) => {
   child.error('test test test', new Error('booom'))
   await logger.end()
   const log = fs.readFileSync(fileName).toString()
-  t.ok(log.includes('ERROR'))
-  t.ok(log.includes('test test test test=42\nError: booom\n'))
+  t.truthy(log.includes('ERROR'))
+  t.truthy(log.includes('test test test test=42\nError: booom\n'))
 })
 
 test('should use child logger', async (t) => {
@@ -50,8 +50,8 @@ test('should use child logger', async (t) => {
   child.info('test test test')
   await logger.end()
   const log = fs.readFileSync(fileName).toString()
-  t.ok(log.includes('INFO'))
-  t.ok(log.endsWith('test test test test=42\n'))
+  t.truthy(log.includes('INFO'))
+  t.truthy(log.endsWith('test test test test=42\n'))
 })
 
 test('should add additional meta data to child logger', async (t) => {
@@ -67,8 +67,8 @@ test('should add additional meta data to child logger', async (t) => {
   child.info('test test test')
   await logger.end()
   const log = fs.readFileSync(fileName).toString()
-  t.ok(log.includes('INFO'))
-  t.ok(log.endsWith('test test test test=42 country=DE\n'))
+  t.truthy(log.includes('INFO'))
+  t.truthy(log.endsWith('test test test test=42 country=DE\n'))
 })
 
 test('parent logger should remain functional', async (t) => {
@@ -85,9 +85,9 @@ test('parent logger should remain functional', async (t) => {
   await logger.end()
   const log = fs.readFileSync(fileName).toString()
 
-  t.ok(log.includes('INFO'))
-  t.ok(log.endsWith('test test test\n'))
-  t.ok(!log.includes('test=42'))
+  t.true(log.includes('INFO'))
+  t.truthy(log.endsWith('test test test\n'))
+  t.truthy(!log.includes('test=42'))
 })
 
 test('should use child child logger', async (t) => {
@@ -101,6 +101,6 @@ test('should use child child logger', async (t) => {
   childChild.info('test test test')
   await logger.end()
   const log = fs.readFileSync(fileName).toString()
-  t.ok(log.includes('INFO'))
-  t.ok(log.endsWith('test test test requestId=42 country=DE\n'))
+  t.truthy(log.includes('INFO'))
+  t.truthy(log.endsWith('test test test requestId=42 country=DE\n'))
 })

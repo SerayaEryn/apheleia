@@ -1,6 +1,6 @@
 'use strict'
 
-const { test } = require('tap')
+const test = require('ava')
 const { SimpleFormat } = require('../lib/Apheleia')
 
 test('should handle undefined meta', (t) => {
@@ -9,7 +9,7 @@ test('should handle undefined meta', (t) => {
 
   const preparedMeta = format.formatMetaDataObject()
 
-  t.equals(preparedMeta, '')
+  t.is(preparedMeta, '')
 })
 
 test('should handle undefined value', (t) => {
@@ -18,7 +18,7 @@ test('should handle undefined value', (t) => {
 
   const preparedMeta = format.formatMetaData('key')
 
-  t.equals(preparedMeta, '')
+  t.is(preparedMeta, '')
 })
 
 test('simple message', (t) => {
@@ -27,7 +27,7 @@ test('simple message', (t) => {
 
   const line = format.transform('INFO', 'hello world', [], undefined)
 
-  t.ok(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z INFO hello world/.test(line))
+  t.true(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z INFO hello world/.test(line))
 })
 
 test('undefined arg', (t) => {
@@ -36,7 +36,7 @@ test('undefined arg', (t) => {
 
   const line = format.transform('INFO', 'hello world', [undefined], undefined)
 
-  t.ok(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z INFO hello world/.test(line))
+  t.true(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z INFO hello world/.test(line))
 })
 
 test('simple message with timestamp caching', (t) => {
@@ -45,5 +45,5 @@ test('simple message with timestamp caching', (t) => {
 
   const line = format.transform('INFO', 'hello world', [], undefined)
 
-  t.ok(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z INFO hello world/.test(line))
+  t.true(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z INFO hello world/.test(line))
 })
