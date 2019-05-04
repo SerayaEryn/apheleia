@@ -3,7 +3,7 @@
 [![Build Status](https://travis-ci.org/SerayaEryn/apheleia.svg?branch=master)](https://travis-ci.org/SerayaEryn/apheleia)
 [![Coverage Status](https://coveralls.io/repos/github/SerayaEryn/apheleia/badge.svg?branch=master)](https://coveralls.io/github/SerayaEryn/apheleia?branch=master)
 [![NPM version](https://img.shields.io/npm/v/apheleia.svg?style=flat)](https://www.npmjs.com/package/apheleia)
-[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![Greenkeeper badge](https://badges.greenkeeper.io/SerayaEryn/apheleia.svg)](https://greenkeeper.io/)
 
 A fast and simplistic logger supporting any Writable stream and custom formats.
 
