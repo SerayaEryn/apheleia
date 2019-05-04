@@ -8,12 +8,12 @@ export type LoggerOptions = {
 export function createLogger (options: LoggerOptions | undefined): Logger
 
 export class Logger {
-  trace (message: string, ...args: any[]): void
-  debug (message: string, ...args: any[]): void
-  info (message: string, ...args: any[]): void
-  warn (message: string, ...args: any[]): void
-  error (message: string, ...args: any[]): void
-  fatal (message: string, ...args: any[]): void
+  trace (message: string, ...args: Array<object | string | Error | any[]>): void
+  debug (message: string, ...args: Array<object | string | Error | any[]>): void
+  info (message: string, ...args: Array<object | string | Error | any[]>): void
+  warn (message: string, ...args: Array<object | string | Error | any[]>): void
+  error (message: string, ...args: Array<object | string | Error | any[]>): void
+  fatal (message: string, ...args: Array<object | string | Error | any[]>): void
   child (meta: object): Logger
   getLevel (): string
   setLevel (level: string): void

@@ -5,7 +5,7 @@
 [![NPM version](https://img.shields.io/npm/v/apheleia.svg?style=flat)](https://www.npmjs.com/package/apheleia)
 [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com) [![Greenkeeper badge](https://badges.greenkeeper.io/SerayaEryn/apheleia.svg)](https://greenkeeper.io/)
 
-A fast and simplistic logger supporting any Writable stream and custom formats.
+Fast and simplistic logger supporting any Writable stream and custom formats.
 
 ## Installation
 

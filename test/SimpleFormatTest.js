@@ -12,11 +12,29 @@ test('should handle undefined meta', (t) => {
   t.equals(preparedMeta, '')
 })
 
+test('should handle undefined value', (t) => {
+  t.plan(1)
+  const format = new SimpleFormat()
+
+  const preparedMeta = format.formatMetaData('key')
+
+  t.equals(preparedMeta, '')
+})
+
 test('simple message', (t) => {
   t.plan(1)
   const format = new SimpleFormat()
 
   const line = format.transform('INFO', 'hello world', [], undefined)
+
+  t.ok(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z INFO hello world/.test(line))
+})
+
+test('undefined arg', (t) => {
+  t.plan(1)
+  const format = new SimpleFormat()
+
+  const line = format.transform('INFO', 'hello world', [undefined], undefined)
 
   t.ok(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z INFO hello world/.test(line))
 })

@@ -40,19 +40,32 @@ Allows to set the transport of the logger.
 ## Logger
 
 The logger supports the following levels: `TRACE`, `DEBUG`, `INFO`, `WARN`, `ERROR` & `FATAL`
-The logger provides a logging method for each level:
+The logger provides a logging method for each level.
 
-### Logger#trace(message: string, ...args): void
+Each logging method accepts a `message` and any number of further arguments to be logged. For example errors or objects.
+
+```js
+logger.info('a message')
+logger.error('something went wrong', error)
+logger.debug('debug', { property: '42'})
+```
+
+### Logger#trace(message: string, ...args: Array<object | string | Error | any[]>): void
 Writes a `TRACE` level log, if allowed by the `level` option.
-### Logger#debug(message: string, ...args): void
+
+### Logger#debug(message: string, ...args: Array<object | string | Error | any[]>): void
 Writes a `DEBUG` level log, if allowed by the `level` option.
-### Logger#info(message: string, ...args): void
+
+### Logger#info(message: string, ...args: Array<object | string | Error | any[]>): void
 Writes a `INFO` level log, if allowed by the `level` option.
-### Logger#warn(message: string, ...args): void
+
+### Logger#warn(message: string, ...args: Array<object | string | Error | any[]>): void
 Writes a `WARN` level log, if allowed by the `level` option.
-### Logger#error(message: string, ...args): void
+
+### Logger#error(message: string, ...args: Array<object | string | Error | any[]>): void
 Writes a `ERROR` level log, if allowed by the `level` option.
-### Logger#fatal(message: string, ...args): void
+
+### Logger#fatal(message: string, ...args: Array<object | string | Error | any[]>): void
 Writes a `FATAL` level log, if allowed by the `level` option.
 
 ### Logger#child(meta: object): Logger
@@ -63,6 +76,9 @@ Child loggers allow to create loggers with additional information; for example a
 The provided additional information will be included every time a logging functions is being called on the child logger.
 
 ```js
+const { createLogger } = require('apheleia')
+const parentLogger = createLogger()
+
 const child = parentLogger.child({ requestId: 'abcd' })
 child.info('hello world!')
 ```
@@ -118,6 +134,15 @@ A format used to stringify the parameters passed to the loggers methods.
 
 <a id="simpleformatapi"></a>
 ## SimpleFormat([options])
+
+The `SimpleFormat` formats the arguments using the following format: `date level message meta`
+
+Example:
+
+```
+2019-04-19T09:23:50.902Z INFO hello world
+2019-04-19T09:23:50.902Z INFO hello world requestId=abcd
+```
 
 <a id="jsonformatapi"></a>
 ## JsonFormat([options])
