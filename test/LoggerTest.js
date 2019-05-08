@@ -161,6 +161,7 @@ test('should log with level info and include object', async (t) => {
   logger.info('test test test', 'something', { test: 42 }, () => {})
   await logger.end()
   const buffer = fs.readFileSync(fileName)
+  t.log(buffer.toString())
   t.truthy(buffer.toString().includes('INFO'))
   t.truthy(buffer.toString().endsWith('test test test something test=42\n'))
 })

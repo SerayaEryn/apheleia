@@ -9,7 +9,7 @@
     "lint": "standard DateFormatter.js lib/* test/* benchmark/*",
     "coveralls": "nyc npm test && nyc report --reporter=text-lcov | coveralls",
     "coverage": "nyc npm test && nyc report --reporter=html",
-    "benchmark": "node benchmark/benchmarkSimpleFormat.js && node benchmark/benchmarkJsonFormat.js && node benchmark/benchmarkChildLogging.js && node benchmark/benchmarkChildChildLogging.js && node benchmark/benchmarkChildCreation.js"
+    "benchmark": "node benchmark/benchmarkSimpleFormat.js && node benchmark/benchmarkJsonFormat.js && node benchmark/benchmarkChildLogging.js && node benchmark/benchmarkChildChildLogging.js && node benchmark/benchmarkChildCreation.js && node benchmark/benchmarkObjectJsonFormat.js"
   },
   "author": "Denis Fäcke",
   "license": "MIT",
@@ -24,8 +24,10 @@
     "ava": "^1.4.1",
     "coveralls": "^3.0.2",
     "fastbench": "^1.0.1",
+    "fastify": "^2.3.0",
     "nyc": "^14.1.0",
     "pino": "^5.12.2",
+    "request": "^2.88.0",
     "sonic-boom": "^0.7.3",
     "standard": "^12.0.1",
     "winston": "^3.1.0"
