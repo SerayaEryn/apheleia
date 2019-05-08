@@ -121,3 +121,39 @@ test('should prepare undefined meta', (t) => {
 
   t.is(partialLine, '')
 })
+
+test('should ignore level property', (t) => {
+  t.plan(1)
+  const format = new JsonFormat()
+
+  const partialLine = format.formatMetaDataObject({ level: 42 })
+
+  t.is(partialLine, '')
+})
+
+test('should ignore message property', (t) => {
+  t.plan(1)
+  const format = new JsonFormat()
+
+  const partialLine = format.formatMetaDataObject({ message: 42 })
+
+  t.is(partialLine, '')
+})
+
+test('should ignore serializers property', (t) => {
+  t.plan(1)
+  const format = new JsonFormat()
+
+  const partialLine = format.formatMetaDataObject({ serializers: 42 })
+
+  t.is(partialLine, '')
+})
+
+test('should not ignore serializers property', (t) => {
+  t.plan(1)
+  const format = new JsonFormat({ ignoreFastifyProperties: false })
+
+  const line = format.formatMetaDataObject({ serializers: 42 })
+
+  t.is(line, ',"serializers":42')
+})

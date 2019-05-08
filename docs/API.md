@@ -48,32 +48,45 @@ Each logging method accepts a `message` and any number of further arguments to b
 logger.info('a message')
 logger.error('something went wrong', error)
 logger.debug('debug', { property: '42'})
+logger.log({ level: 'INFO', message: 'hello world' })
 ```
 
-### Logger#trace(message: string, ...args: Array<object | string | Error | any[]>): void
+### Logger#trace([object], [message], [...metaInformation])
 Writes a `TRACE` level log, if allowed by the `level` option.
 
-### Logger#debug(message: string, ...args: Array<object | string | Error | any[]>): void
+### Logger#debug([object], [message], [...metaInformation])
 Writes a `DEBUG` level log, if allowed by the `level` option.
 
-### Logger#info(message: string, ...args: Array<object | string | Error | any[]>): void
+### Logger#info([object], [message], [...metaInformation])
 Writes a `INFO` level log, if allowed by the `level` option.
 
-### Logger#warn(message: string, ...args: Array<object | string | Error | any[]>): void
+### Logger#warn([object], [message], [...metaInformation])
 Writes a `WARN` level log, if allowed by the `level` option.
 
-### Logger#error(message: string, ...args: Array<object | string | Error | any[]>): void
+### Logger#error([object], [message], [...metaInformation])
 Writes a `ERROR` level log, if allowed by the `level` option.
 
-### Logger#fatal(message: string, ...args: Array<object | string | Error | any[]>): void
+### Logger#fatal([object], [message], [...metaInformation])
 Writes a `FATAL` level log, if allowed by the `level` option.
 
-### Logger#child(meta: object): Logger
+### Logger#log([object], [message], [...metaInformation])
+
+Writes a log using the `level` provided by the `object`, if allowed by 
+the `level` option.
+
+```js
+logger.log({ level: 'INFO', message: 'hello world' })
+logger.log({ level: 'INFO' }, 'hello world')
+```
+
+### Logger#child(meta): Logger
 
 Creates a child logger with additional data.
 
-Child loggers allow to create loggers with additional information; for example an id of a request or the name of a module.<br>
-The provided additional information will be included every time a logging functions is being called on the child logger.
+Child loggers allow to create loggers with additional information; for 
+example an id of a request or the name of a module.<br>
+The provided additional information will be included every time a logging 
+functions is being called on the child logger.
 
 ```js
 const { createLogger } = require('apheleia')
@@ -83,23 +96,23 @@ const child = parentLogger.child({ requestId: 'abcd' })
 child.info('hello world!')
 ```
 
-### Logger#getLevel(): string
+### Logger#getLevel()
 
 Returns the current level of the logger as a string.
 
-### Logger#setLevel(level: string): void
+### Logger#setLevel(level)
 
 Changes the level to the passed `level`.
 
-### Logger#isLevelEnabled(level: string): boolean
+### Logger#isLevelEnabled(level)
 
 Allows to check if a `level` is enabled.
 
-### Logger#end(): Promise\<void>
+### Logger#end()
 
 Ends the logger by calling `end()` on every transport. Returns a Promise.
 
-### Logger#addMetaData (key: string, value: any): void
+### Logger#addMetaData (key, value)
 
 Allows to add additional meta data to a logger or child logger.
 

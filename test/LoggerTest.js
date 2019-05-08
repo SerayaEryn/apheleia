@@ -48,6 +48,94 @@ test('should log with level info', async (t) => {
   t.truthy(buffer.toString().endsWith('test test test\n'))
 })
 
+test('should ignore null object', async (t) => {
+  t.plan(2)
+  const fileName = getFile()
+  const logger = createLogger({
+    stream: fs.createWriteStream(fileName)
+  })
+
+  logger.info(null, 'test test test')
+  await logger.end()
+  const buffer = fs.readFileSync(fileName)
+  t.truthy(buffer.toString().includes('INFO'))
+  t.truthy(buffer.toString().endsWith('test test test\n'))
+})
+
+test('should ignore boolean object', async (t) => {
+  t.plan(2)
+  const fileName = getFile()
+  const logger = createLogger({
+    stream: fs.createWriteStream(fileName)
+  })
+
+  logger.info(true, 'test test test')
+  await logger.end()
+  const buffer = fs.readFileSync(fileName)
+  t.truthy(buffer.toString().includes('INFO'))
+  t.truthy(buffer.toString().endsWith('test test test\n'))
+})
+
+test('should use level from object', async (t) => {
+  t.plan(2)
+  const fileName = getFile()
+  const logger = createLogger({
+    stream: fs.createWriteStream(fileName)
+  })
+
+  logger.log({ level: 'INFO' }, 'test test test')
+  await logger.end()
+  const buffer = fs.readFileSync(fileName)
+  t.log(buffer.toString())
+  t.truthy(buffer.toString().includes('INFO'))
+  t.truthy(buffer.toString().endsWith('test test test\n'))
+})
+
+test('should use level INFO if object provides to level', async (t) => {
+  t.plan(2)
+  const fileName = getFile()
+  const logger = createLogger({
+    stream: fs.createWriteStream(fileName)
+  })
+
+  logger.log({}, 'test test test')
+  await logger.end()
+  const buffer = fs.readFileSync(fileName)
+  t.log(buffer.toString())
+  t.truthy(buffer.toString().includes('INFO'))
+  t.truthy(buffer.toString().endsWith('test test test\n'))
+})
+
+test('should use message from object', async (t) => {
+  t.plan(2)
+  const fileName = getFile()
+  const logger = createLogger({
+    stream: fs.createWriteStream(fileName)
+  })
+
+  logger.log({ level: 'INFO', message: 'test test test' })
+  await logger.end()
+  const buffer = fs.readFileSync(fileName)
+  t.log(buffer.toString())
+  t.truthy(buffer.toString().includes('INFO'))
+  t.truthy(buffer.toString().endsWith('test test test\n'))
+})
+
+test('should log meta data from object', async (t) => {
+  t.plan(2)
+  const fileName = getFile()
+  const logger = createLogger({
+    stream: fs.createWriteStream(fileName)
+  })
+
+  logger.log({ level: 'INFO', message: 'test test test', test: 42 })
+  await logger.end()
+  const buffer = fs.readFileSync(fileName)
+  t.log(buffer.toString())
+  t.truthy(buffer.toString().includes('INFO'))
+  t.truthy(buffer.toString().endsWith('test test test test=42\n'))
+})
+
 test('should add meta data', async (t) => {
   t.plan(2)
   const fileName = getFile()
@@ -74,7 +162,7 @@ test('should log with level info and include object', async (t) => {
   await logger.end()
   const buffer = fs.readFileSync(fileName)
   t.truthy(buffer.toString().includes('INFO'))
-  t.truthy(buffer.toString().endsWith('test test test something\n{"test":42}\n'))
+  t.truthy(buffer.toString().endsWith('test test test something test=42\n'))
 })
 
 test('should log with level warn', async (t) => {
