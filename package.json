@@ -21,7 +21,7 @@
     "node": ">= 8.0.0"
   },
   "devDependencies": {
-    "ava": "^1.4.1",
+    "ava": "^2.0.0",
     "coveralls": "^3.0.2",
     "fastbench": "^1.0.1",
     "fastify": "^2.3.0",
