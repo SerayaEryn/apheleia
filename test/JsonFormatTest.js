@@ -84,6 +84,15 @@ test('non object args', (t) => {
   t.truthy(/{"time":\d{13},"level":30,"msg":"hello world! test"}/.test(line))
 })
 
+test('handle null and undefined correctly', (t) => {
+  t.plan(1)
+  const format = new JsonFormat()
+
+  const line = format.transform('INFO', 'hello world!', [{ test1: null, test2: undefined }], '')
+
+  t.truthy(/{"time":\d{13},"level":30,"test1":null,"msg":"hello world!"}/.test(line))
+})
+
 test('error with code', (t) => {
   t.plan(1)
   const format = new JsonFormat()

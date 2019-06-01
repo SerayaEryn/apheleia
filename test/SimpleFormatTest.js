@@ -30,6 +30,15 @@ test('simple message', (t) => {
   t.true(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z INFO hello world/.test(line))
 })
 
+test('simple message with object with null/undefined', (t) => {
+  t.plan(1)
+  const format = new SimpleFormat()
+
+  const line = format.transform('INFO', 'hello world', [{ test1: null, test2: undefined }], undefined)
+
+  t.true(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}.\d{3}Z INFO hello world test1=null/.test(line))
+})
+
 test('undefined arg', (t) => {
   t.plan(1)
   const format = new SimpleFormat()
