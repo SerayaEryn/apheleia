@@ -86,6 +86,7 @@ test('parent logger should remain functional', async (t) => {
   const log = fs.readFileSync(fileName).toString()
 
   t.true(log.includes('INFO'))
+  t.log(log)
   t.truthy(log.endsWith('test test test\n'))
   t.truthy(!log.includes('test=42'))
 })
@@ -102,5 +103,6 @@ test('should use child child logger', async (t) => {
   await logger.end()
   const log = fs.readFileSync(fileName).toString()
   t.truthy(log.includes('INFO'))
+  t.log(log)
   t.truthy(log.endsWith('test test test requestId=42 country=DE\n'))
 })

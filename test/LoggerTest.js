@@ -151,6 +151,29 @@ test('should add meta data', async (t) => {
   t.truthy(buffer.toString().endsWith('test test test test=42\n'))
 })
 
+test('should reformat meta data after adding meta data', async (t) => {
+  t.plan(5)
+  const fileName = getFile()
+  const logger = createLogger({
+    stream: fs.createWriteStream(fileName)
+  })
+  logger.addMetaData('test', 42)
+  logger.info('test test test')
+
+  logger.addMetaData('test', 43)
+  logger.addMetaData('test2', 42)
+  logger.info('test test test')
+
+  await logger.end()
+  const log = fs.readFileSync(fileName).toString()
+  const lines = log.split('\n')
+  t.truthy(lines[0].includes('INFO'))
+  t.truthy(lines[0].endsWith('test test test test=42'))
+  t.truthy(lines[1].includes('INFO'))
+  t.truthy(lines[1].endsWith('test test test test=43 test2=42'))
+  t.is(lines[2], '')
+})
+
 test('should log with level info and include object', async (t) => {
   t.plan(2)
   const fileName = getFile()
