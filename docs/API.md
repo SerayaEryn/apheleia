@@ -130,7 +130,7 @@ new Transport({
 
 ### stream
 
-A Writable stream.
+A Writable stream instance or a SonicBoom instance.
 
 ### format
 
@@ -157,5 +157,21 @@ Example:
 2019-04-19T09:23:50.902Z INFO hello world requestId=abcd
 ```
 
+### dateFormat (optional)
+
+A date format supported by [fast-date-format](https://github.com/SerayaEryn/fast-date-format). Defaults to `YYYY-MM-DDTHH:mm:ss.SSS[Z]`.
+
+### serializers (optional)
+
+Allows to add custom serializers for objects.
+
 <a id="jsonformatapi"></a>
 ## JsonFormat([options])
+
+### dateFormat (optional)
+
+A date format supported by [fast-date-format](https://github.com/SerayaEryn/fast-date-format). Defaults to a timestamp.
+
+### serializers (optional)
+
+Allows to add custom serializers for objects.
