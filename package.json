@@ -14,7 +14,7 @@
   "author": "Denis Fäcke",
   "license": "MIT",
   "dependencies": {
-    "fast-date-format": "^2.1.2",
+    "fast-date-format": "^2.2.2",
     "json-escaping": "^1.0.1"
   },
   "engines": {
