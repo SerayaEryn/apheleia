@@ -1,5 +1,5 @@
 {
     "all": true,
     "check-coverage": true,
-    "reporter": [ "lcov", "text-summary" ]
+    "reporter": [ "lcov", "text" ]
 }
