@@ -33,9 +33,9 @@ This logs the following lines:
 
 ## Documentation
 
-* [API](./docs/API.md)
-* [Benchmarks](./docs/Benchmarks.md)
-* [Transports & Formats](./docs/TransportsAndFormats.md)
+* [API](https://github.com/SerayaEryn/apheleia/blob/master/docs/API.md)
+* [Benchmarks](https://github.com/SerayaEryn/apheleia/blob/master/docs/Benchmarks.md)
+* [Transports & Formats](https://github.com/SerayaEryn/apheleia/blob/master/docs/TransportsAndFormats.md)
 
 ## License
 
