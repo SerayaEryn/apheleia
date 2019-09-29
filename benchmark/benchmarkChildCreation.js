@@ -22,27 +22,30 @@ const apheleiaLoggerJson = createLogger({
   format: new JsonFormat()
 })
 
-console.log('\nChild Creation:\n')
+module.exports = function childCreation () {
+  return new Promise((resolve) => {
+    console.log('\nChild Creation:\n')
 
-const run = bench([
-  function benchWinston (cb) {
-    for (let i = 0; i < 10; i++) {
-      winstonLogger.child({ module: 'test' })
-    }
-    setImmediate(cb)
-  },
-  function benchPino (cb) {
-    for (let i = 0; i < 10; i++) {
-      pinoLogger.child({ module: 'test' })
-    }
-    setImmediate(cb)
-  },
-  function benchApheleia (cb) {
-    for (let i = 0; i < 10; i++) {
-      apheleiaLoggerJson.child({ module: 'test' })
-    }
-    setImmediate(cb)
-  }
-], 100000)
-
-run(run)
+    const run = bench([
+      function benchWinston (cb) {
+        for (let i = 0; i < 10; i++) {
+          winstonLogger.child({ module: 'test' })
+        }
+        setImmediate(cb)
+      },
+      function benchPino (cb) {
+        for (let i = 0; i < 10; i++) {
+          pinoLogger.child({ module: 'test' })
+        }
+        setImmediate(cb)
+      },
+      function benchApheleia (cb) {
+        for (let i = 0; i < 10; i++) {
+          apheleiaLoggerJson.child({ module: 'test' })
+        }
+        setImmediate(cb)
+      }
+    ], 100000)
+    run(resolve)
+  })
+}

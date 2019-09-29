@@ -24,27 +24,29 @@ const apheleiaLoggerSonicBoom = createLogger({
   format: new SimpleFormat()
 })
 
-console.log('SimpleFormat:\n')
-
-const run = benchmark([
-  function benchWinston (cb) {
-    for (let i = 0; i < 10; i++) {
-      winstonLogger.info('hello world')
-    }
-    setImmediate(cb)
-  },
-  function benchApheleia (cb) {
-    for (let i = 0; i < 10; i++) {
-      apheleiaLogger.info('hello world')
-    }
-    setImmediate(cb)
-  },
-  function benchApheleiaSonicBoom (cb) {
-    for (let i = 0; i < 10; i++) {
-      apheleiaLoggerSonicBoom.info('hello world')
-    }
-    setImmediate(cb)
-  }
-], 100000)
-
-run(run)
+module.exports = function simpleFormat () {
+  return new Promise((resolve) => {
+    const run = benchmark([
+      function benchWinston (cb) {
+        for (let i = 0; i < 10; i++) {
+          winstonLogger.info('hello world')
+        }
+        setImmediate(cb)
+      },
+      function benchApheleia (cb) {
+        for (let i = 0; i < 10; i++) {
+          apheleiaLogger.info('hello world')
+        }
+        setImmediate(cb)
+      },
+      function benchApheleiaSonicBoom (cb) {
+        for (let i = 0; i < 10; i++) {
+          apheleiaLoggerSonicBoom.info('hello world')
+        }
+        setImmediate(cb)
+      }
+    ], 100000)
+    console.log('SimpleFormat:\n')
+    run(resolve)
+  })
+}
