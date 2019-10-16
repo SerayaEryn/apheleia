@@ -1,11 +1,11 @@
 export type LoggerOptions = {
-  format: Format
-  stream: WritableStream
-  level: string
-  transports: Transport[]
+  format?: Format
+  stream?: WritableStream
+  level?: string
+  transports?: Transport[]
 }
 
-export function createLogger (options: LoggerOptions | undefined): Logger
+export function createLogger (options?: LoggerOptions): Logger
 
 export class Logger {
   trace (message: string, ...args: Array<object | string | Error | any[]>): void
