@@ -102,7 +102,8 @@ Returns the current level of the logger as a string.
 
 ### Logger#setLevel(level)
 
-Changes the level to the passed `level`.
+Changes the level to the passed `level`. If `SILENT` is being passed  
+nothing will be logged. 
 
 ### Logger#isLevelEnabled(level)
 

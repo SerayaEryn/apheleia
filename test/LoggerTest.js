@@ -34,6 +34,24 @@ test.serial('should not log with level debug', async (t) => {
   }
 })
 
+test.serial('should not log if set to silent', async (t) => {
+  t.plan(1)
+  const fileName = getFile()
+  const logger = createLogger({
+    stream: fs.createWriteStream(fileName),
+    level: 'SILENT'
+  })
+
+  logger.debug('test test test')
+  await logger.end()
+  if (fs.existsSync(fileName)) {
+    const log = fs.readFileSync(fileName).toString()
+    t.is(log, '')
+  } else {
+    t.pass()
+  }
+})
+
 test('should log with level info', async (t) => {
   t.plan(2)
   const fileName = getFile()
