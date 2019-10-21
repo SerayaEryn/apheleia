@@ -1,6 +1,8 @@
+import { Writable } from "stream"
+
 export type LoggerOptions = {
   format?: Format
-  stream?: WritableStream
+  stream?: Writable
   level?: string
   transports?: Transport[]
 }
@@ -8,12 +10,12 @@ export type LoggerOptions = {
 export function createLogger (options?: LoggerOptions): Logger
 
 export class Logger {
-  trace (message: string, ...args: Array<object | string | Error | any[]>): void
-  debug (message: string, ...args: Array<object | string | Error | any[]>): void
-  info (message: string, ...args: Array<object | string | Error | any[]>): void
-  warn (message: string, ...args: Array<object | string | Error | any[]>): void
-  error (message: string, ...args: Array<object | string | Error | any[]>): void
-  fatal (message: string, ...args: Array<object | string | Error | any[]>): void
+  trace (message: string, ...args: Array<object | string | Error>): void
+  debug (message: string, ...args: Array<object | string | Error>): void
+  info (message: string, ...args: Array<object | string | Error>): void
+  warn (message: string, ...args: Array<object | string | Error>): void
+  error (message: string, ...args: Array<object | string | Error>): void
+  fatal (message: string, ...args: Array<object | string | Error>): void
   child (meta: object): Logger
   getLevel (): string
   setLevel (level: string): void
@@ -30,7 +32,7 @@ export interface Format {
 
 export type TransportOptions = {
   format: Format
-  stream: WritableStream
+  stream: Writable
 }
 
 export class Transport {
