@@ -41,7 +41,7 @@
     "type": "git",
     "url": "git+https://github.com/SerayaEryn/apheleia.git"
   },
-  "types": "./types.d.ts",
+  "types": "./types/types.d.ts",
   "files": [
     "lib",
     "types/types.d.ts"
