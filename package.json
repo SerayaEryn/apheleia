@@ -19,10 +19,10 @@
     "json-escaping": "^1.0.1"
   },
   "engines": {
-    "node": ">= 8.0.0"
+    "node": ">=10.13.0"
   },
   "devDependencies": {
-    "ava": "^2.0.0",
+    "ava": "^3.0.0",
     "fastify": "^2.3.0",
     "nyc": "^15.0.0",
     "request": "^2.88.0",
