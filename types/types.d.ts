@@ -44,3 +44,5 @@ export class Transport {
 }
 
 export class ConsoleTransport extends Transport {}
+
+export class SimpleTransport extends Transport {}
