@@ -45,4 +45,8 @@ export class Transport {
 
 export class ConsoleTransport extends Transport {}
 
-export class SimpleTransport extends Transport {}
+export class SimpleFormat implements Format {
+  transform(level: string, message: string, args: any[], meta: object): string
+  formatMetaDataObject(meta: object): string
+  formatMetaData(key: string, value: any): string
+}
