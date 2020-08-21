@@ -27,7 +27,7 @@
     "nyc": "^15.0.0",
     "request": "^2.88.0",
     "standard": "^14.0.0",
-    "typescript": "^3.6.4"
+    "typescript": "^4.0.2"
   },
   "keywords": [
     "logger",
