@@ -3,9 +3,10 @@
 const test = require('ava')
 const { createLogger } = require('../lib/Apheleia')
 const fs = require('fs')
+const { join } = require('path')
 
 const files = []
-var count = 0
+let count = 0
 
 test.after.always(() => {
   files.forEach((file) => {
@@ -434,7 +435,7 @@ test('should throw if trying to change to unknown level', (t) => {
 })
 
 function getFile () {
-  const file = `${__dirname}/console${count++}.log`
+  const file = join(__dirname, `/console${count++}.log`)
   files.push(file)
   return file
 }

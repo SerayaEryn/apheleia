@@ -3,9 +3,10 @@
 const test = require('ava')
 const { createLogger } = require('../lib/Apheleia')
 const fs = require('fs')
+const { join } = require('path')
 
 const files = []
-var count = 50
+let count = 50
 
 test.after.always(() => {
   files.forEach((file) => {
@@ -18,7 +19,7 @@ test.after.always(() => {
 })
 
 function getFile () {
-  const file = `${__dirname}/console${count++}.log`
+  const file = join(__dirname, `/console${count++}.log`)
   files.push(file)
   return file
 }

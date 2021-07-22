@@ -7,7 +7,7 @@
     "unit": "ava test/*Test.js",
     "unit:types": "tsc --project ./types/tsconfig.json --noEmit",
     "test": "npm run lint && npm run unit && npm run unit:types",
-    "lint": "standard DateFormatter.js lib/* test/* benchmark/*.js",
+    "lint": "standard lib/* test/* benchmark/*.js",
     "coveralls": "nyc npm test",
     "coverage": "nyc npm test && nyc report --reporter=html",
     "benchmark": "node benchmark/benchmark.js"
@@ -26,7 +26,7 @@
     "fastify": "^3.2.0",
     "nyc": "^15.0.0",
     "request": "^2.88.0",
-    "standard": "^14.0.0",
+    "standard": "^16.0.3",
     "typescript": "^4.0.2"
   },
   "keywords": [
