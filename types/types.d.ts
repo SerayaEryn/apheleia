@@ -50,3 +50,9 @@ export class SimpleFormat implements Format {
   formatMetaDataObject(meta: object): string
   formatMetaData(key: string, value: any): string
 }
+
+export class JsonFormat implements Format {
+  transform(level: string, message: string, args: any[], meta: object): string
+  formatMetaDataObject(meta: object): string
+  formatMetaData(key: string, value: any): string
+}
