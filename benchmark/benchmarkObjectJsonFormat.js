@@ -8,7 +8,7 @@ const SonicBoom = require('sonic-boom')
 const winston = require('winston')
 
 const pinoLogger = pino(fs.createWriteStream('/dev/null'))
-const pinoExtreme = pino(pino.extreme('/dev/null'))
+const pinoExtreme = pino(pino.destination({ sync: false, dest: '/dev/null' }))
 
 const winstonLogger = winston.createLogger({
   transports: [
@@ -25,7 +25,7 @@ const apheleiaLoggerJson = createLogger({
 })
 
 const apheleiaLoggerJsonSonicBoom = createLogger({
-  stream: new SonicBoom('/dev/null', 16 * 1024),
+  stream: new SonicBoom({ dest: '/dev/null', minLength: 0, sync: false }),
   format: new JsonFormat()
 })
 

@@ -20,7 +20,7 @@ const apheleiaLogger = createLogger({
   format: new SimpleFormat()
 })
 const apheleiaLoggerSonicBoom = createLogger({
-  stream: new SonicBoom('/dev/null', 16 * 1024),
+  stream: new SonicBoom({ dest: '/dev/null', minLength: 0, sync: false }),
   format: new SimpleFormat()
 })
 
