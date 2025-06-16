@@ -1,6 +1,6 @@
 {
   "name": "apheleia",
-  "version": "4.0.0-rc.1",
+  "version": "4.0.0-rc.2",
   "description": "fast and simplistic logger.",
   "keywords": [
     "logger",
@@ -21,7 +21,7 @@
   "license": "MIT",
   "author": "Denis Fäcke",
   "type": "module",
-  "main": "lib/Apheleia.js",
+  "main": "lib/Apheleia.mjs",
   "types": "./types/types.d.ts",
   "directories": {
     "doc": "docs",
