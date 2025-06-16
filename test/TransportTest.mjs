@@ -1,7 +1,5 @@
-'use strict'
-
-const test = require('ava')
-const { Transport } = require('../lib/Apheleia')
+import test from 'ava'
+import { Transport } from '../lib/Apheleia.mjs'
 
 test('should call format.formatMetaData()', (t) => {
   t.plan(1)

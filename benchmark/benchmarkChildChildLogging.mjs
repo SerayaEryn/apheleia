@@ -1,14 +1,12 @@
-'use strict'
+import bench from 'fastbench'
+import fs from 'fs'
+import { createLogger, JsonFormat } from '../lib/Apheleia.mjs'
+import pino from 'pino'
+import SonicBoom from 'sonic-boom'
+import winston from 'winston'
 
-const bench = require('fastbench')
-const fs = require('fs')
-const { createLogger, JsonFormat } = require('../lib/Apheleia')
-const pino = require('pino')
-const SonicBoom = require('sonic-boom')
-const winston = require('winston')
-
-const pinoLogger = pino(fs.createWriteStream('/dev/null'))
-const pinoExtreme = pino(pino.destination({ sync: false, dest: '/dev/null' }))
+const pinoLogger = pino(fs.createWriteStream('/dev/null')).child({ module: 'test' }).child({ requestId: 42 })
+const pinoExtreme = pino(pino.destination({ sync: false, dest: '/dev/null' })).child({ module: 'test' }).child({ requestId: 42 })
 
 const winstonLogger = winston.createLogger({
   transports: [
@@ -17,19 +15,19 @@ const winstonLogger = winston.createLogger({
       format: winston.format.json()
     })
   ]
-})
+}).child({ module: 'test' }).child({ requestId: 42 })
 
 const apheleiaLoggerJson = createLogger({
   stream: fs.createWriteStream('/dev/null'),
   format: new JsonFormat()
-})
+}).child({ module: 'test' }).child({ requestId: 42 })
 
 const apheleiaLoggerJsonSonicBoom = createLogger({
   stream: new SonicBoom({ dest: '/dev/null', minLength: 0, sync: false }),
   format: new JsonFormat()
-})
+}).child({ module: 'test' }).child({ requestId: 42 })
 
-module.exports = function jsonFormat () {
+export default function childChildLogging () {
   return new Promise((resolve) => {
     const run = bench([
       function benchWinston (cb) {
@@ -63,7 +61,7 @@ module.exports = function jsonFormat () {
         setImmediate(cb)
       }
     ], 100000)
-    console.log('\nJsonFormat:\n')
+    console.log('\nChild Child Logging:\n')
     run(resolve)
   })
 }

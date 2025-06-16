@@ -1,35 +1,7 @@
 {
   "name": "apheleia",
-  "version": "3.0.0",
+  "version": "4.0.0-rc.1",
   "description": "fast and simplistic logger.",
-  "main": "lib/Apheleia.js",
-  "scripts": {
-    "unit": "ava test/*Test.js",
-    "unit:types": "tsc --project ./types/tsconfig.json --noEmit",
-    "test": "npm run lint && npm run unit && npm run unit:types",
-    "lint": "standard lib/* test/* benchmark/*.js",
-    "coveralls": "nyc npm test",
-    "coverage": "nyc npm test && nyc report --reporter=html",
-    "benchmark": "node benchmark/benchmark.js"
-  },
-  "author": "Denis Fäcke",
-  "license": "MIT",
-  "dependencies": {
-    "fast-date-format": "^2.2.4",
-    "json-escaping": "^1.0.1"
-  },
-  "engines": {
-    "node": ">=12.13.0"
-  },
-  "devDependencies": {
-    "@types/node": "^16.4.0",
-    "ava": "^3.0.0",
-    "fastify": "^3.2.0",
-    "nyc": "^15.0.0",
-    "request": "^2.88.0",
-    "standard": "^16.0.3",
-    "typescript": "^4.0.2"
-  },
   "keywords": [
     "logger",
     "logging",
@@ -38,13 +10,53 @@
     "json",
     "fast"
   ],
+  "homepage": "https://github.com/SerayaEryn/apheleia#readme",
+  "bugs": {
+    "url": "https://github.com/SerayaEryn/apheleia/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/SerayaEryn/apheleia.git"
   },
+  "license": "MIT",
+  "author": "Denis Fäcke",
+  "type": "module",
+  "main": "lib/Apheleia.js",
   "types": "./types/types.d.ts",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib",
+    "test": "test"
+  },
   "files": [
     "lib",
     "types/types.d.ts"
-  ]
+  ],
+  "scripts": {
+    "unit": "ava test/*Test.mjs",
+    "unit:types": "tsc --project ./types/tsconfig.json --noEmit",
+    "test": "npm run lint && npm run unit && npm run unit:types",
+    "lint": "npx eslint",
+    "coveralls": "nyc npm test",
+    "coverage": "nyc npm test && nyc report --reporter=html",
+    "benchmark": "node benchmark/benchmark.js"
+  },
+  "dependencies": {
+    "fast-date-format": "^3.0.0-rc.1",
+    "json-escaping": "^2.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.29.0",
+    "@types/node": "^24.0.1",
+    "ava": "^6.4.0",
+    "eslint": "^9.29.0",
+    "fastify": "^5.4.0",
+    "globals": "^16.2.0",
+    "nyc": "^15.0.0",
+    "request": "^2.88.2",
+    "typescript": "^5.8.3"
+  },
+  "engines": {
+    "node": ">=24.2.0"
+  }
 }

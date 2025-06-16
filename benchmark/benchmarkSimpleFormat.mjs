@@ -1,11 +1,8 @@
-
-'use strict'
-
-const benchmark = require('fastbench')
-const winston = require('winston')
-const fs = require('fs')
-const { createLogger, SimpleFormat } = require('../lib/Apheleia')
-const SonicBoom = require('sonic-boom')
+import fs from 'fs'
+import { createLogger, SimpleFormat } from '../lib/Apheleia.mjs'
+import SonicBoom from 'sonic-boom'
+import winston from 'winston'
+import benchmark from 'fastbench'
 
 const winstonLogger = winston.createLogger({
   transports: [
@@ -24,7 +21,7 @@ const apheleiaLoggerSonicBoom = createLogger({
   format: new SimpleFormat()
 })
 
-module.exports = function simpleFormat () {
+export default function simpleFormat () {
   return new Promise((resolve) => {
     const run = benchmark([
       function benchWinston (cb) {

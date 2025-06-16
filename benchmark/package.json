@@ -1,8 +1,8 @@
 {
   "dependencies": {
     "fastbench": "^1.0.1",
-    "pino": "^6.13.0",
-    "sonic-boom": "^2.1.0",
-    "winston": "^3.3.3"
+    "pino": "^9.7.0",
+    "sonic-boom": "^4.2.0",
+    "winston": "^3.17.0"
   }
 }

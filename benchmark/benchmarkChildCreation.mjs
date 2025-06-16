@@ -1,10 +1,8 @@
-'use strict'
-
-const bench = require('fastbench')
-const fs = require('fs')
-const { createLogger, JsonFormat } = require('../lib/Apheleia')
-const pino = require('pino')
-const winston = require('winston')
+import bench from 'fastbench'
+import fs from 'fs'
+import { createLogger, JsonFormat } from '../lib/Apheleia.mjs'
+import pino from 'pino'
+import winston from 'winston'
 
 const pinoLogger = pino(fs.createWriteStream('/dev/null'))
 
@@ -22,7 +20,7 @@ const apheleiaLoggerJson = createLogger({
   format: new JsonFormat()
 })
 
-module.exports = function childCreation () {
+export default function childCreation () {
   return new Promise((resolve) => {
     console.log('\nChild Creation:\n')
 

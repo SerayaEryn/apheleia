@@ -1,42 +1,40 @@
 
 # Benchmarks
 
-The benchmarks ran on a 13-inch, Late 2013 MacBook Pro.
-
 To run the benchmarks execute `npm run benchmark`.
 
 ## Json
 
 | Logger               | Duration |
 |----------------------|----------|
-| Winston              | 6286 ms  |
-| Pino                 | 2381 ms  |
-| Apheleia             | 2090 ms  |
-| Pino - Extreme       | 1008 ms  |      
-| Apheleia - SonicBoom | 696 ms   |
+| Winston              | 4078 ms  |
+| Pino                 | 1656 ms  |
+| Apheleia             | 1358 ms  |
+| Pino - Extreme       | 1145 ms  |      
+| Apheleia - SonicBoom | 745 ms   |
 
 ## Non-Json
 
 | Logger               | Duration |
 |----------------------|----------|
-| Winston              | 5691 ms  |
-| Apheleia             | 2876 ms  |
-| Apheleia - SonicBoom | 1301 ms  |
+| Winston              | 4018 ms  |
+| Apheleia             | 1575 ms  |
+| Apheleia - SonicBoom | 1032 ms  |
 
 ## Child Logging
 
 | Logger               | Duration |
 |----------------------|----------|
-| Winston              | 6734 ms  |
-| Pino                 | 2442 ms  |
-| Apheleia             | 2145 ms  |
-| Pino - Extreme       | 1111 ms  |      
-| Apheleia - SonicBoom | 703 ms   |
+| Winston              | 4139 ms  |
+| Pino                 | 1604 ms  |
+| Apheleia             | 1288 ms  |
+| Pino - Extreme       | 951 ms   |      
+| Apheleia - SonicBoom | 816 ms   |
 
 ## Child Creation
 
 | Logger               | Duration |
 |----------------------|----------|
-| Winston              | 996 ms   |
-| Pino                 | 873 ms   |
-| Apheleia             | 364 ms   |
+| Winston              | 328 ms   |
+| Pino                 | 469 ms   |
+| Apheleia             | 100 ms   |

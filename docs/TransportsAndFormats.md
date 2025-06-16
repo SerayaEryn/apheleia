@@ -6,7 +6,7 @@ There are two built-in transports: `Transport` and `ConsoleTransport`.
 ## Transport
 
 ```js
-const { Transport, JsonFormat } = require('apheleia')
+import { Transport, JsonFormat } from 'apheleia'
 
 const transport = new Transport({
   stream: fs.createWriteStream('/dev/null'),
@@ -20,7 +20,7 @@ The `ConsoleTransport` is a transport that logs to `stdout` and `stderr`.<br>
 Levels being logged to stdout: `TRACE`, `DEBUG`, `INFO`<br>
 Levels being logged to stderr: `WARN`, `ERROR`, `FATAL`
 ```js
-const { Transport, JsonFormat } = require('apheleia')
+import { ConsoleTransport, JsonFormat } from 'apheleia'
 
 const transport = new ConsoleTransport({
   format: new JsonFormat()

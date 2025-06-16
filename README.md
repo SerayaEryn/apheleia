@@ -16,7 +16,7 @@ npm i apheleia
 ## Usage
 
 ```js
-const { createLogger } = require('apheleia')
+import { createLogger } from 'apheleia'
 
 const logger = createLogger()
 logger.info('hello world')

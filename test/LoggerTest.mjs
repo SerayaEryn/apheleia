@@ -1,9 +1,7 @@
-'use strict'
-
-const test = require('ava')
-const { createLogger } = require('../lib/Apheleia')
-const fs = require('fs')
-const { join } = require('path')
+import test from 'ava'
+import { createLogger } from '../lib/Apheleia.mjs'
+import fs from 'node:fs'
+import { join } from 'node:path'
 
 const files = []
 let count = 0
@@ -250,158 +248,174 @@ test('should log stack', async (t) => {
   t.truthy(log.includes('test test test\nError: booom\n'))
 })
 
-test.cb('should log with level trace to stdout', (t) => {
-  t.plan(3)
-  const fileName = getFile()
-  const logger = createLogger({
-    level: 'TRACE'
-  })
+test('should log with level trace to stdout', async (t) => {
+  return new Promise((resolve, reject) => {
+    t.plan(3)
+    const fileName = getFile()
+    const logger = createLogger({
+      level: 'TRACE'
+    })
 
-  const originalWrite = process.stdout.write
-  const stream = fs.createWriteStream(fileName)
-  process.stdout.write = stream.write.bind(stream)
+    const originalWrite = process.stdout.write
+    const stream = fs.createWriteStream(fileName)
+    process.stdout.write = stream.write.bind(stream)
 
-  logger.trace('test test test')
-  stream.on('finish', () => {
-    logger.end()
-      .then(() => {
-        process.stdout.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.truthy(log.includes('TRACE'))
-        t.truthy(log.endsWith('test test test\n'))
-        t.end()
-      })
+    logger.trace('test test test')
+    stream.on('finish', () => {
+      logger.end()
+        .then(() => {
+          process.stdout.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.truthy(log.includes('TRACE'))
+          t.truthy(log.endsWith('test test test\n'))
+          resolve()
+        })
+    })
+    stream.end()
   })
-  stream.end()
 })
 
-test.cb('should log with level debug to stdout', (t) => {
-  t.plan(3)
-  const fileName = getFile()
-  const logger = createLogger({
-    level: 'TRACE'
-  })
+test('should log with level debug to stdout', async (t) => {
+  return new Promise((resolve, reject) => {
+    t.plan(3)
+    const fileName = getFile()
+    const logger = createLogger({
+      level: 'TRACE'
+    })
 
-  const originalWrite = process.stdout.write
-  const stream = fs.createWriteStream(fileName)
-  process.stdout.write = stream.write.bind(stream)
+    const originalWrite = process.stdout.write
+    const stream = fs.createWriteStream(fileName)
+    process.stdout.write = stream.write.bind(stream)
 
-  logger.debug('test test test')
-  stream.on('finish', () => {
-    logger.end()
-      .then(() => {
-        process.stdout.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.truthy(log.includes('DEBUG'))
-        t.truthy(log.endsWith('test test test\n'))
-        t.end()
-      })
+    logger.debug('test test test')
+    stream.on('finish', () => {
+      logger.end()
+        .then(() => {
+          process.stdout.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.truthy(log.includes('DEBUG'))
+          t.truthy(log.endsWith('test test test\n'))
+          resolve()
+        })
+    })
+    stream.end()
   })
-  stream.end()
 })
 
-test.cb('should log with level info to stdout', (t) => {
-  t.plan(3)
-  const fileName = getFile()
-  const logger = createLogger({
-    level: 'TRACE'
-  })
+test('should log with level info to stdout', async (t) => {
+  return new Promise((resolve, reject) => {
+    t.plan(3)
+    const fileName = getFile()
+    const logger = createLogger({
+      level: 'TRACE'
+    })
 
-  const originalWrite = process.stdout.write
-  const stream = fs.createWriteStream(fileName)
-  process.stdout.write = stream.write.bind(stream)
+    const originalWrite = process.stdout.write
+    const stream = fs.createWriteStream(fileName)
+    process.stdout.write = stream.write.bind(stream)
 
-  logger.info('test test test')
-  stream.on('finish', () => {
-    logger.end()
-      .then(() => {
-        process.stdout.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.truthy(log.includes('INFO'))
-        t.truthy(log.endsWith('test test test\n'))
-        t.end()
-      })
+    logger.info('test test test')
+    stream.on('finish', () => {
+      logger.end()
+        .then(() => {
+          process.stdout.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.truthy(log.includes('INFO'))
+          t.truthy(log.endsWith('test test test\n'))
+          resolve()
+        })
+    })
+    stream.end()
   })
-  stream.end()
 })
 
-test.cb('should log with level warn to stderr', (t) => {
-  t.plan(3)
-  const fileName = getFile()
-  const logger = createLogger({})
+test('should log with level warn to stderr', async (t) => {
+  return new Promise((resolve, reject) => {
+    t.plan(3)
+    const fileName = getFile()
+    const logger = createLogger({})
 
-  const originalWrite = process.stderr.write
-  const stream = fs.createWriteStream(fileName)
-  process.stderr.write = stream.write.bind(stream)
+    const originalWrite = process.stderr.write
+    const stream = fs.createWriteStream(fileName)
+    process.stderr.write = stream.write.bind(stream)
 
-  logger.warn('test test test')
-  stream.on('finish', () => {
-    logger.end()
-      .then(() => {
-        process.stderr.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.truthy(log.includes('WARN'))
-        t.truthy(log.endsWith('test test test\n'))
-        t.end()
-      })
+    logger.warn('test test test')
+    stream.on('finish', () => {
+      logger.end()
+        .then(() => {
+          process.stderr.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.truthy(log.includes('WARN'))
+          t.truthy(log.endsWith('test test test\n'))
+          resolve()
+        })
+    })
+    stream.end()
   })
-  stream.end()
 })
 
-test.cb('should log with level error to stderr', (t) => {
-  t.plan(3)
-  const fileName = getFile()
-  const logger = createLogger({
-    level: 'TRACE'
-  })
+test('should log with level error to stderr', async (t) => {
+  return new Promise((resolve, reject) => {
+    t.plan(3)
+    const fileName = getFile()
+    const logger = createLogger({
+      level: 'TRACE'
+    })
 
-  const originalWrite = process.stderr.write
-  const stream = fs.createWriteStream(fileName)
-  process.stderr.write = stream.write.bind(stream)
+    const originalWrite = process.stderr.write
+    const stream = fs.createWriteStream(fileName)
+    process.stderr.write = stream.write.bind(stream)
 
-  logger.error('test test test')
-  stream.on('finish', () => {
-    logger.end()
-      .then(() => {
-        process.stderr.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.truthy(log.includes('ERROR'))
-        t.truthy(log.endsWith('test test test\n'))
-        t.end()
-      })
+    logger.error('test test test')
+    stream.on('finish', () => {
+      logger.end()
+        .then(() => {
+          process.stderr.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.truthy(log.includes('ERROR'))
+          t.truthy(log.endsWith('test test test\n'))
+          resolve()
+        })
+    })
+    stream.end()
   })
-  stream.end()
 })
 
-test.cb('should log with level fatal to stderr', (t) => {
-  t.plan(3)
-  const fileName = getFile()
-  const logger = createLogger({
-    level: 'TRACE'
-  })
+test('should log with level fatal to stderr', async (t) => {
+  return new Promise((resolve, reject) => {
+    try {
+    t.plan(3)
+    const fileName = getFile()
+    const logger = createLogger({
+      level: 'TRACE'
+    })
+    const originalWrite = process.stderr.write
+    const stream = fs.createWriteStream(fileName)
+    process.stderr.write = stream.write.bind(stream)
 
-  const originalWrite = process.stderr.write
-  const stream = fs.createWriteStream(fileName)
-  process.stderr.write = stream.write.bind(stream)
-
-  logger.fatal('test test test')
-  stream.on('finish', () => {
-    logger.end()
-      .then(() => {
-        process.stderr.write = originalWrite
-        t.pass('end cb called')
-        const log = fs.readFileSync(fileName).toString()
-        t.truthy(log.includes('FATAL'))
-        t.truthy(log.endsWith('test test test\n'))
-        t.end()
-      })
+    logger.fatal('test test test')
+    stream.on('finish', () => {
+      logger.end()
+        .then(() => {
+          process.stderr.write = originalWrite
+          t.pass('end cb called')
+          const log = fs.readFileSync(fileName).toString()
+          t.truthy(log.includes('FATAL'))
+          t.truthy(log.endsWith('test test test\n'))
+          resolve()
+        })
+    })
+    stream.end()
+    } catch (err) {
+      console.log(err)
+      throw err
+    }
   })
-  stream.end()
 })
 
 test('should return level', (t) => {
@@ -435,7 +449,7 @@ test('should throw if trying to change to unknown level', (t) => {
 })
 
 function getFile () {
-  const file = join(__dirname, `/console${count++}.log`)
+  const file = join(import.meta.dirname, `/console${count++}.log`)
   files.push(file)
   return file
 }

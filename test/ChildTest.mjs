@@ -1,9 +1,7 @@
-'use strict'
-
-const test = require('ava')
-const { createLogger } = require('../lib/Apheleia')
-const fs = require('fs')
-const { join } = require('path')
+import test from 'ava'
+import { createLogger } from '../lib/Apheleia.mjs'
+import fs from 'fs'
+import { join } from 'path'
 
 const files = []
 let count = 50
@@ -19,7 +17,7 @@ test.after.always(() => {
 })
 
 function getFile () {
-  const file = join(__dirname, `/console${count++}.log`)
+  const file = join(import.meta.dirname, `/console${count++}.log`)
   files.push(file)
   return file
 }
@@ -105,5 +103,6 @@ test('should use child child logger', async (t) => {
   const log = fs.readFileSync(fileName).toString()
   t.truthy(log.includes('INFO'))
   t.log(log)
+  console.log(log)
   t.truthy(log.endsWith('test test test requestId=42 country=DE\n'))
 })

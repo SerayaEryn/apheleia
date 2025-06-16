@@ -1,7 +1,5 @@
-'use strict'
-
-const test = require('ava')
-const { SimpleFormat } = require('../lib/Apheleia')
+import test from 'ava'
+import { SimpleFormat } from '../lib/Apheleia.mjs'
 
 test('should handle undefined meta', (t) => {
   t.plan(1)

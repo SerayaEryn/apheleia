@@ -11,9 +11,9 @@
 ## createLogger([options]): Logger
 Creates a new [`Logger`](#logger) instance.
 
-```js
-const { createLogger, SimpleFormat } = require('apheleia')
-const fs = require('fs')
+```mjs
+import { createLogger, SimpleFormat } from 'apheleia'
+import fs from 'fs'
 
 const logger = createLogger({
   stream: fs.createWriteStream(__dirname + '/app.log'),
@@ -89,7 +89,7 @@ The provided additional information will be included every time a logging
 functions is being called on the child logger.
 
 ```js
-const { createLogger } = require('apheleia')
+import { createLogger } from 'apheleia'
 const parentLogger = createLogger()
 
 const child = parentLogger.child({ requestId: 'abcd' })

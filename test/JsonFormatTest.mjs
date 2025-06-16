@@ -1,7 +1,5 @@
-'use strict'
-
-const test = require('ava')
-const { JsonFormat } = require('../lib/Apheleia')
+import test from 'ava'
+import { JsonFormat } from '../lib/Apheleia.mjs'
 
 test('simple message', (t) => {
   t.plan(1)
