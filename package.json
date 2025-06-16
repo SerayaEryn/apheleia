@@ -41,7 +41,7 @@
     "benchmark": "node benchmark/benchmark.js"
   },
   "dependencies": {
-    "fast-date-format": "^3.0.0-rc.1",
+    "fast-date-format": "^3.0.0",
     "json-escaping": "^2.0.0"
   },
   "devDependencies": {
