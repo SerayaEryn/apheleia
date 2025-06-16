@@ -1,6 +1,6 @@
 {
   "name": "apheleia",
-  "version": "4.0.0-rc.2",
+  "version": "4.0.0",
   "description": "fast and simplistic logger.",
   "keywords": [
     "logger",
