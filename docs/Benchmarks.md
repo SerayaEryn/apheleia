@@ -7,19 +7,19 @@ To run the benchmarks execute `npm run benchmark`.
 
 | Logger               | Duration |
 |----------------------|----------|
-| Winston              | 4078 ms  |
-| Pino                 | 1656 ms  |
-| Apheleia             | 1358 ms  |
-| Pino - Extreme       | 1145 ms  |      
-| Apheleia - SonicBoom | 745 ms   |
+| Winston              | 3941 ms  |
+| Pino                 | 1804 ms  |
+| Apheleia             | 1259 ms  |
+| Pino - Extreme       | 1217 ms  |      
+| Apheleia - SonicBoom | 718 ms   |
 
 ## Non-Json
 
 | Logger               | Duration |
 |----------------------|----------|
-| Winston              | 4018 ms  |
-| Apheleia             | 1575 ms  |
-| Apheleia - SonicBoom | 1032 ms  |
+| Winston              | 3864 ms  |
+| Apheleia             | 1518 ms  |
+| Apheleia - SonicBoom | 1089 ms  |
 
 ## Child Logging
 
