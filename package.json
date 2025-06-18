@@ -37,6 +37,7 @@
     "unit:types": "tsc --project ./types/tsconfig.json --noEmit",
     "test": "npm run lint && npm run unit && npm run unit:types",
     "lint": "npx eslint lib test",
+    "prettier": "npx prettier lib test benchmark --write",
     "coverage": "c8 npm test",
     "benchmark": "node benchmark/benchmark.mjs"
   },
@@ -51,6 +52,7 @@
     "eslint": "^9.29.0",
     "fastify": "^5.4.0",
     "globals": "^16.2.0",
+    "prettier": "3.5.3",
     "request": "^2.88.2",
     "typescript": "^5.8.3"
   },
