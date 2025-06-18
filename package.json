@@ -36,13 +36,12 @@
     "unit": "ava test/*Test.mjs",
     "unit:types": "tsc --project ./types/tsconfig.json --noEmit",
     "test": "npm run lint && npm run unit && npm run unit:types",
-    "lint": "npx eslint",
+    "lint": "npx eslint lib test",
     "coverage": "c8 npm test",
     "benchmark": "node benchmark/benchmark.js"
   },
   "dependencies": {
-    "fast-date-format": "^3.0.0",
-    "json-escaping": "^2.0.0"
+    "fast-date-format": "^3.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",
