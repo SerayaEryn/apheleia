@@ -53,7 +53,6 @@
     "fastify": "^5.4.0",
     "globals": "^16.2.0",
     "prettier": "3.5.3",
-    "request": "^2.88.2",
     "typescript": "^5.8.3"
   },
   "engines": {
